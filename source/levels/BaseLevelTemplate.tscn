@@ -1,0 +1,115 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://source/levels/BaseLevel.gd" type="Script" id=2]
+[ext_resource path="res://source/levels/levelHelpers/SceneTransitor.tscn" type="PackedScene" id=3]
+[ext_resource path="res://source/actors/ais/DummyAi.tscn" type="PackedScene" id=4]
+[ext_resource path="res://source/actors/players/BasePlayer.tscn" type="PackedScene" id=6]
+
+[sub_resource type="ConvexPolygonShape2D" id=1]
+points = PoolVector2Array( 64, 64, 0, 64, 0, 0, 64, 0 )
+
+[sub_resource type="TileSet" id=2]
+0/name = "icon.png 0"
+0/texture = ExtResource( 1 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 0.729412, 0.729412, 0.729412, 1 )
+0/region = Rect2( 0, 0, 64, 64 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape = SubResource( 1 )
+0/shape_one_way = false
+0/shape_one_way_margin = 1.0
+0/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 1 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+0/z_index = 0
+
+[sub_resource type="ConvexPolygonShape2D" id=3]
+points = PoolVector2Array( 64, 64, 0, 64, 0, 0, 64, 0 )
+
+[sub_resource type="TileSet" id=4]
+0/name = "icon.png 0"
+0/texture = ExtResource( 1 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 0.521569, 0, 0, 1 )
+0/region = Rect2( 0, 0, 64, 64 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape = SubResource( 3 )
+0/shape_one_way = false
+0/shape_one_way_margin = 1.0
+0/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 3 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+0/z_index = 0
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 153.322, 105.014 )
+
+[node name="Level" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="SceneTransitor" parent="." instance=ExtResource( 3 )]
+
+[node name="SkillStore" type="Node" parent="."]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color( 0.270588, 0.270588, 0.270588, 1 )
+
+[node name="World" type="TileMap" parent="."]
+tile_set = SubResource( 2 )
+collision_layer = 33
+collision_mask = 0
+format = 1
+tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 14, 0, 0, 15, 0, 0, 16, 0, 0, 17, 0, 0, 18, 0, 0, 65536, 0, 0, 65554, 0, 0, 65555, 0, 0, 65556, 0, 0, 65557, 0, 0, 65558, 0, 0, 65559, 0, 0, 65560, 0, 0, 65561, 0, 0, 65562, 0, 0, 65563, 0, 0, 65564, 0, 0, 65565, 0, 0, 65566, 0, 0, 65567, 0, 0, 65568, 0, 0, 65569, 0, 0, 65570, 0, 0, 65571, 0, 0, 65572, 0, 0, 65573, 0, 0, 65574, 0, 0, 131072, 0, 0, 131079, 0, 0, 131110, 0, 0, 131111, 0, 0, 196608, 0, 0, 196647, 0, 0, 262144, 0, 0, 262148, 0, 0, 262149, 0, 0, 262154, 0, 0, 262184, 0, 0, 327680, 0, 0, 327690, 0, 0, 327691, 0, 0, 327720, 0, 0, 393216, 0, 0, 393243, 0, 0, 393244, 0, 0, 393245, 0, 0, 393246, 0, 0, 393247, 0, 0, 393248, 0, 0, 393249, 0, 0, 393250, 0, 0, 393251, 0, 0, 393252, 0, 0, 393253, 0, 0, 393254, 0, 0, 393255, 0, 0, 393256, 0, 0, 458752, 0, 0, 458753, 0, 0, 458771, 0, 0, 458772, 0, 0, 458773, 0, 0, 458774, 0, 0, 458775, 0, 0, 458777, 0, 0, 458792, 0, 0, 524288, 0, 0, 524290, 0, 0, 524305, 0, 0, 524313, 0, 0, 524328, 0, 0, 589824, 0, 0, 589827, 0, 0, 589830, 0, 0, 589834, 0, 0, 589841, 0, 0, 589849, 0, 0, 589864, 0, 0, 655360, 0, 0, 655361, 0, 0, 655362, 0, 0, 655363, 0, 0, 655366, 0, 0, 655370, 0, 0, 655373, 0, 0, 655374, 0, 0, 655375, 0, 0, 655377, 0, 0, 655385, 0, 0, 655400, 0, 0, 720896, 0, 0, 720902, 0, 0, 720904, 0, 0, 720907, 0, 0, 720913, 0, 0, 720922, 0, 0, 720936, 0, 0, 786432, 0, 0, 786435, 0, 0, 786438, 0, 0, 786443, 0, 0, 786449, 0, 0, 786458, 0, 0, 786472, 0, 0, 851968, 0, 0, 851974, 0, 0, 851979, 0, 0, 851985, 0, 0, 851994, 0, 0, 852007, 0, 0, 917504, 0, 0, 917510, 0, 0, 917515, 0, 0, 917521, 0, 0, 917530, 0, 0, 917543, 0, 0, 1048575, 0, 0, 983040, 0, 0, 983045, 0, 0, 983051, 0, 0, 983057, 0, 0, 983066, 0, 0, 983079, 0, 0, 1114111, 0, 0, 1048581, 0, 0, 1048587, 0, 0, 1048593, 0, 0, 1048602, 0, 0, 1048614, 0, 0, 1179647, 0, 0, 1114117, 0, 0, 1114123, 0, 0, 1114129, 0, 0, 1114138, 0, 0, 1114150, 0, 0, 1245183, 0, 0, 1179653, 0, 0, 1179659, 0, 0, 1179665, 0, 0, 1179674, 0, 0, 1179685, 0, 0, 1310719, 0, 0, 1245189, 0, 0, 1245195, 0, 0, 1245201, 0, 0, 1245202, 0, 0, 1245210, 0, 0, 1245221, 0, 0, 1376255, 0, 0, 1310725, 0, 0, 1310731, 0, 0, 1310738, 0, 0, 1310746, 0, 0, 1310756, 0, 0, 1441791, 0, 0, 1376261, 0, 0, 1376267, 0, 0, 1376274, 0, 0, 1376282, 0, 0, 1376291, 0, 0, 1376292, 0, 0, 1507327, 0, 0, 1441797, 0, 0, 1441803, 0, 0, 1441810, 0, 0, 1441818, 0, 0, 1441826, 0, 0, 1441827, 0, 0, 1572863, 0, 0, 1507328, 0, 0, 1507329, 0, 0, 1507330, 0, 0, 1507331, 0, 0, 1507332, 0, 0, 1507333, 0, 0, 1507334, 0, 0, 1507335, 0, 0, 1507336, 0, 0, 1507337, 0, 0, 1507338, 0, 0, 1507339, 0, 0, 1507340, 0, 0, 1507341, 0, 0, 1507346, 0, 0, 1507354, 0, 0, 1507357, 0, 0, 1507358, 0, 0, 1507359, 0, 0, 1507360, 0, 0, 1507361, 0, 0, 1507362, 0, 0, 1572878, 0, 0, 1572879, 0, 0, 1572880, 0, 0, 1572881, 0, 0, 1572882, 0, 0, 1572883, 0, 0, 1572884, 0, 0, 1572885, 0, 0, 1572886, 0, 0, 1572887, 0, 0, 1572888, 0, 0, 1572889, 0, 0, 1572890, 0, 0, 1572891, 0, 0, 1572892, 0, 0, 1572893, 0, 0 )
+
+[node name="ClimbTile" type="TileMap" parent="."]
+tile_set = SubResource( 4 )
+collision_layer = 34
+collision_mask = 0
+format = 1
+
+[node name="EndArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EndArea"]
+position = Vector2( -529.666, 787.572 )
+shape = SubResource( 5 )
+
+[node name="Actors" type="Node2D" parent="."]
+
+[node name="Ais" type="Node2D" parent="Actors"]
+
+[node name="DummyAi" parent="Actors/Ais" instance=ExtResource( 4 )]
+position = Vector2( 524.592, 544.615 )
+
+[node name="Player" type="Node2D" parent="Actors"]
+
+[node name="BasePlayer" parent="Actors/Player" instance=ExtResource( 6 )]
+position = Vector2( 205.82, 396.58 )
+baseHealth = 800.0
+maxHealth = 800.0
+
+[node name="Traps" type="Node2D" parent="."]
+
+[node name="Boxes" type="Node2D" parent="."]
+
+[node name="JumpPads" type="Node2D" parent="."]
+
+[node name="Portals" type="Node2D" parent="."]

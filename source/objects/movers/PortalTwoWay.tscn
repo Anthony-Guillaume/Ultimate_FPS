@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://audio/Sfx.gd" type="Script" id=1]
+[ext_resource path="res://audio/sfx/jump_pad_portal_effect001.wav" type="AudioStream" id=2]
+[ext_resource path="res://source/objects/movers/PortalTwoWay.gd" type="Script" id=3]
+
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 30.1218, 32.0882 )
+
+[node name="PortalTwoWay" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Portal1" type="Area2D" parent="."]
+position = Vector2( 165.396, 1.47018 )
+monitorable = false
+collision_mask = 12
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Portal1"]
+self_modulate = Color( 0.360784, 0.956863, 0.87451, 1 )
+position = Vector2( 2.78632, -0.451248 )
+scale = Vector2( 0.165044, 0.165044 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Portal1"]
+shape = SubResource( 1 )
+
+[node name="Portal2" type="Area2D" parent="."]
+position = Vector2( -135.257, 2.20528 )
+monitorable = false
+collision_mask = 12
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Portal2"]
+self_modulate = Color( 0.360784, 0.956863, 0.87451, 1 )
+position = Vector2( 6.34189, -1.35374 )
+scale = Vector2( 0.146281, 0.146281 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Portal2"]
+position = Vector2( 1.80502, 0 )
+shape = SubResource( 1 )
+
+[node name="Sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 2 )
+bus = "SFX"
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}

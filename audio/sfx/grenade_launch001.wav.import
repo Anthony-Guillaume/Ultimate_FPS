@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/grenade_launch001.wav-94bad825060f9378d6603f527b2aafd8.sample"
+
+[deps]
+
+source_file="res://audio/sfx/grenade_launch001.wav"
+dest_files=[ "res://.import/grenade_launch001.wav-94bad825060f9378d6603f527b2aafd8.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

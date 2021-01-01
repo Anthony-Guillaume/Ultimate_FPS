@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://source/objects/doors/Door.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 122.939, 100.463 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 32.067, 30.0818 )
+
+[node name="Door" type="Area2D"]
+collision_mask = 4
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource( 1 )
+
+[node name="DoorBody" type="StaticBody2D" parent="."]
+collision_mask = 28
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoorBody"]
+shape = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="DoorBody"]
+visible = false
+self_modulate = Color( 0.768627, 0.0941176, 0.905882, 1 )
+texture = ExtResource( 1 )

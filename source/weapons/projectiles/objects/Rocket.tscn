@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/sprites/rocket001.png" type="Texture" id=1]
+[ext_resource path="res://source/weapons/projectiles/objects/Rocket.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 25.7568, 7.55152 )
+
+[node name="Rocket" type="Area2D"]
+linear_damp = 0.0
+angular_damp = 0.0
+collision_layer = 16
+collision_mask = 15
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+self_modulate = Color( 0.243137, 0.34902, 0.501961, 1 )
+rotation = 1.5708
+scale = Vector2( 0.194841, 0.101295 )
+texture = ExtResource( 1 )

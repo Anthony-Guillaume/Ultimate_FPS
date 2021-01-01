@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/jump_pad_portal_effect001.wav-5250e9223e19f16fd1179f6e7bb186ac.sample"
+
+[deps]
+
+source_file="res://audio/sfx/jump_pad_portal_effect001.wav"
+dest_files=[ "res://.import/jump_pad_portal_effect001.wav-5250e9223e19f16fd1179f6e7bb186ac.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
