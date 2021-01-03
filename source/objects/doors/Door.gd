@@ -4,6 +4,7 @@ class_name Door
 
 export var targetPaths : Array = []
 export var keyPaths : Array = []
+export var opened : bool = false
 
 var targets : Array = []
 var keys : Array = []
@@ -12,6 +13,10 @@ func get_class() -> String:
 	return "Door"
 
 func _ready() -> void:
+	if opened:
+		open()
+	else:
+		close()
 	connect("body_entered", self, "_on_body_entered")
 	for targetPath in targetPaths:
 		var target : Actor = get_node(targetPath)
@@ -30,13 +35,16 @@ func _on_key_death(key : Key) -> void:
 
 func _on_body_entered(player : BasePlayer) -> void:
 	if targets.empty() and keys.empty():
-		print("open")
 		open()
 
 func open() -> void:
-	$DoorBody/CollisionShape2D.set_deferred("disabled", true)
-	$DoorBody/Sprite.hide()
+	if not opened:
+		$DoorBody/LaserField.playExtinction(0.4)
+		$DoorBody/CollisionShape2D.set_deferred("disabled", true)
+		opened = true
 
 func close() -> void:
-	$DoorBody/CollisionShape2D.set_deferred("disabled", false)
-	$DoorBody/Sprite.show()
+	if opened:
+		$DoorBody/LaserField.playIgnition()
+		$DoorBody/CollisionShape2D.set_deferred("disabled", false)
+		opened = false

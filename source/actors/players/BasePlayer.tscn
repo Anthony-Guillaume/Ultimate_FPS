@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://assets/lights/light_sphere001.png" type="Texture" id=1]
 [ext_resource path="res://source/actors/players/BasePlayer.gd" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://assets/sprites/player_model003.png" type="Texture" id=9]
 [ext_resource path="res://source/weapons/RocketLauncher.tscn" type="PackedScene" id=10]
 [ext_resource path="res://source/actors/players/Sprite.gd" type="Script" id=11]
+[ext_resource path="res://source/weapons/LaserGun.tscn" type="PackedScene" id=12]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 30.2967
@@ -38,6 +39,7 @@ margin_left = -20.7652
 margin_top = -63.2396
 margin_right = 19.2348
 margin_bottom = -49.2396
+text = "STATE"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -45,12 +47,15 @@ __meta__ = {
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource( 6 )]
+visible = false
 
 [node name="WeaponSet" parent="." instance=ExtResource( 7 )]
 
-[node name="Gun" parent="WeaponSet" instance=ExtResource( 8 )]
+[node name="Gun" parent="WeaponSet/Weapons" index="0" instance=ExtResource( 8 )]
 
-[node name="RocketLauncher" parent="WeaponSet" instance=ExtResource( 10 )]
+[node name="RocketLauncher" parent="WeaponSet/Weapons" index="1" instance=ExtResource( 10 )]
+
+[node name="LaserGun" parent="WeaponSet/Weapons" index="2" instance=ExtResource( 12 )]
 
 [node name="Muzzle" type="Position2D" parent="."]
 position = Vector2( 56.0632, 0 )
@@ -68,3 +73,5 @@ energy = 0.7
 scale = Vector2( 0.179101, 0.179101 )
 texture = ExtResource( 9 )
 script = ExtResource( 11 )
+
+[editable path="WeaponSet"]

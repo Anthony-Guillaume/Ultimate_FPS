@@ -11,7 +11,7 @@ func get_class() -> String:
 func initialize(weaponSet : WeaponSet) -> void:
 	_weaponSet = weaponSet
 	_weaponSet.connect("weaponAdded", self, "_addWeaponSlot")
-	for weapon in _weaponSet.get_children():
+	for weapon in _weaponSet.getWeapons():
 		_addWeaponSlot(weapon)
 
 func _addWeaponSlot(weapon : Weapon) -> void:

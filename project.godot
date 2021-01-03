@@ -54,11 +54,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://singletons/ConfigData.gd"
 }, {
-"base": "RayCast2D",
-"class": "Cut",
-"language": "GDScript",
-"path": "res://source/weapons/projectiles/objects/Cut.gd"
-}, {
 "base": "Node2D",
 "class": "DebugDrawNode",
 "language": "GDScript",
@@ -83,11 +78,6 @@ _global_script_classes=[ {
 "class": "Explosion",
 "language": "GDScript",
 "path": "res://source/weapons/projectiles/objects/Explosion.gd"
-}, {
-"base": "RigidBody2D",
-"class": "ExplosiveBall",
-"language": "GDScript",
-"path": "res://source/weapons/projectiles/objects/ExplosiveBall.gd"
 }, {
 "base": "Explosion",
 "class": "ExplosivePlasmaBall",
@@ -149,6 +139,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/objects/doors/Key.gd"
 }, {
+"base": "Node2D",
+"class": "LaserBeam",
+"language": "GDScript",
+"path": "res://source/weapons/projectiles/objects/LaserBeam.gd"
+}, {
+"base": "Weapon",
+"class": "LaserGun",
+"language": "GDScript",
+"path": "res://source/weapons/LaserGun.gd"
+}, {
 "base": "Menu",
 "class": "LevelMenu",
 "language": "GDScript",
@@ -198,6 +198,11 @@ _global_script_classes=[ {
 "class": "PauseMenu",
 "language": "GDScript",
 "path": "res://source/menus/PauseMenu.gd"
+}, {
+"base": "Node2D",
+"class": "PhantomLaserBeam",
+"language": "GDScript",
+"path": "res://source/weapons/projectiles/objects/PhantomLaserBeam.gd"
 }, {
 "base": "Projectile",
 "class": "PhantomPistolBall",
@@ -289,10 +294,25 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/hud/elements/SkillSlot.gd"
 }, {
+"base": "BaseAi",
+"class": "Soldier",
+"language": "GDScript",
+"path": "res://source/actors/ais/soldiers/Soldier.gd"
+}, {
 "base": "SubMenu",
 "class": "SoundMenu",
 "language": "GDScript",
 "path": "res://source/menus/subMenus/SoundMenu.gd"
+}, {
+"base": "Reference",
+"class": "State",
+"language": "GDScript",
+"path": "res://source/actors/states/State.gd"
+}, {
+"base": "Node",
+"class": "StateMachine",
+"language": "GDScript",
+"path": "res://source/actors/states/StateMachine.gd"
 }, {
 "base": "HBoxContainer",
 "class": "StatusEffectBar",
@@ -308,16 +328,6 @@ _global_script_classes=[ {
 "class": "SubMenu",
 "language": "GDScript",
 "path": "res://source/menus/subMenus/SubMenu.gd"
-}, {
-"base": "Weapon",
-"class": "Sword",
-"language": "GDScript",
-"path": "res://source/weapons/Sword.gd"
-}, {
-"base": "Area2D",
-"class": "ThrowingAxe",
-"language": "GDScript",
-"path": "res://source/weapons/projectiles/objects/ThrowingAxe.gd"
 }, {
 "base": "Reference",
 "class": "TileNavigator",
@@ -389,13 +399,11 @@ _global_script_class_icons={
 "BaseLevel": "",
 "BasePlayer": "",
 "ConfigData": "",
-"Cut": "",
 "DebugDrawNode": "",
 "Door": "",
 "Drone": "",
 "DroneAnimation": "",
 "Explosion": "",
-"ExplosiveBall": "",
 "ExplosivePlasmaBall": "",
 "Gun": "",
 "HUD": "",
@@ -408,6 +416,8 @@ _global_script_class_icons={
 "JumpPad": "",
 "JumpTrajectoryCalculator": "",
 "Key": "",
+"LaserBeam": "",
+"LaserGun": "",
 "LevelMenu": "",
 "LevelNavigatorCompiler": "",
 "Link": "",
@@ -418,6 +428,7 @@ _global_script_class_icons={
 "MuzzleAi": "",
 "OptionsMenu": "",
 "PauseMenu": "",
+"PhantomLaserBeam": "",
 "PhantomPistolBall": "",
 "Pikes": "",
 "PistolBall": "",
@@ -436,12 +447,13 @@ _global_script_class_icons={
 "Sfx": "",
 "SkillBar": "",
 "SkillSlot": "",
+"Soldier": "",
 "SoundMenu": "",
+"State": "",
+"StateMachine": "",
 "StatusEffectBar": "",
 "StatusEffectSlot": "",
 "SubMenu": "",
-"Sword": "",
-"ThrowingAxe": "",
 "TileNavigator": "",
 "Turret": "",
 "ValueBar": "",
@@ -474,10 +486,6 @@ ActorStatusHandler="*res://singletons/ActorStatusHandler.gd"
 [debug]
 
 gdscript/warnings/return_value_discarded=false
-
-[editor_plugins]
-
-enabled=PoolStringArray( "import_scml" )
 
 [input]
 

@@ -4,10 +4,13 @@ class_name Explosion
 
 var damage : float = 100.0
 var radius : float = 100.0
-var knockbackForce : float = 600.0
+var knockbackForce : float = 500.0
 var duration : float = 1.0
 
+var targets : Array = []
+
 onready var sfx : Sfx = $Sfx
+onready var raycast : RayCast2D = $RayCast2D
 onready var animation : Sprite = $Animation
 onready var timer : Timer = $Timer
 
@@ -23,11 +26,22 @@ func _ready() -> void:
 	timer.start(duration)
 
 func _on_body_entered(target : Actor) -> void:
-	var spaceState : Physics2DDirectSpaceState = get_world_2d().get_direct_space_state()
-	var castTo : Vector2 = target.global_position - global_position
-	var collisionInfo : Dictionary = spaceState.intersect_ray(global_position, castTo, [], WorldInfo.LAYER.WORLD + WorldInfo.LAYER.AI + WorldInfo.LAYER.PLAYER)
-	if not collisionInfo.empty():
-		ActorStatusHandler.applyKnockbackFromExplosion(target, global_position, radius, knockbackForce, damage)
+	if targets.has(target):
+		return
+	targets.push_back(target)
+	var impact : Vector2 = getClosestImpactPoint(target)
+	ActorStatusHandler.applyKnockbackFromExplosion(target, global_position, impact, radius, knockbackForce, damage)
+
+func getClosestImpactPoint(target : Actor) -> Vector2:
+	raycast.cast_to = (target.global_position - global_position).normalized() * radius
+	raycast.force_raycast_update()
+	var collider : Actor = raycast.get_collider()
+	while collider != null and raycast.get_collider() != target:
+		collider = raycast.get_collider()
+		raycast.add_exception(collider)
+		raycast.force_raycast_update()
+	raycast.clear_exceptions()
+	return raycast.get_collision_point()
 
 func _on_timer_timeout() -> void:
 	queue_free()

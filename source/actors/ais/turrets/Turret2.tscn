@@ -34,7 +34,7 @@ flip_h = true
 
 [node name="WeaponSet" parent="." instance=ExtResource( 2 )]
 
-[node name="RocketLauncher" parent="WeaponSet" instance=ExtResource( 1 )]
+[node name="RocketLauncher" parent="WeaponSet/Weapons" index="0" instance=ExtResource( 1 )]
 
 [node name="Label" type="Label" parent="."]
 margin_left = -21.827
@@ -54,3 +54,5 @@ texture = ExtResource( 3 )
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
+
+[editable path="WeaponSet"]

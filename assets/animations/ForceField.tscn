@@ -1,0 +1,63 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/icons/TransparantCircle.png" type="Texture" id=1]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+render_mode blend_add;
+
+uniform float zoom = 5.0;
+uniform vec4 shield_tint : hint_color;
+
+vec2 rotation_matrix(vec2 uv, float rot)
+{
+	mat2 m = mat2(vec2(sin(rot), -cos(rot)),
+				vec2(cos(rot), sin(rot)));
+				
+	uv = uv * m;
+	return uv;
+}
+
+float DistLine(vec3 camera_origin, vec3 camera_dir, vec3 point)
+{
+	return length(cross(point - camera_origin, camera_dir)) / length(camera_dir);
+}
+
+float DrawPoint(vec3 camera_origin, vec3 camera_dir, vec3 point)
+{
+	float d = DistLine(camera_origin, camera_dir, point);
+	d = smoothstep(0.4, 0.3, d);
+	return d;
+}
+
+void fragment()
+{
+	vec2 modified_uv = UV - 0.5;
+	vec3 camera_origin = vec3(3.0, 3.0, 3.0);
+	vec3 lookat = vec3(0.0);
+	vec3 f = normalize(lookat - camera_origin);
+	vec3 r = cross(vec3(0.0, 1.0, 0.0), f);
+	vec3 u = cross(f, r);
+	vec3 c = camera_origin + f * zoom;
+	vec3 i = c + modified_uv.x * r + modified_uv.y * u;
+	vec3 camera_dir = i - camera_origin;
+	vec3 target = vec3(0.0);
+	float final_alpha = DrawPoint(camera_origin, camera_dir, target)  * fract((i.y + mod(TIME / 50.0, 1.0))  * 15.0) 
+																* fract((i.x + mod(TIME / 50.0, 1.0)) * 15.0)
+																* fract((i.z + mod(TIME / 50.0, 1.0)) * 15.0);
+	float rotating_color = mix(rotation_matrix(modified_uv, 2.0 * TIME).x, shield_tint.x, 0.5);
+	vec2 refraction = vec2((UV - 0.5));
+	vec4 background = textureLod(SCREEN_TEXTURE, SCREEN_UV + refraction, 0.0);
+	vec3 shield_color = vec3(rotating_color, rotating_color, 1.0);
+	vec3 final_color = background.rgb * 2.0 + shield_color;
+	COLOR = vec4(final_color, final_alpha);
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/zoom = 5.0
+shader_param/shield_tint = Color( 0, 0, 0, 1 )
+
+[node name="ForceField" type="Sprite"]
+material = SubResource( 2 )
+texture = ExtResource( 1 )

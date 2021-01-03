@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://assets/animations/LaserField.gd" type="Script" id=1]
+[ext_resource path="res://assets/shaders/EnergyField.shader" type="Shader" id=2]
+[ext_resource path="res://assets/lights/light_sphere001.png" type="Texture" id=3]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 2 )
+shader_param/intensity = 0.5
+shader_param/layers = 8.0
+shader_param/speed = 0.34
+
+[sub_resource type="OpenSimplexNoise" id=2]
+
+[sub_resource type="NoiseTexture" id=3]
+seamless = true
+noise = SubResource( 2 )
+
+[sub_resource type="Animation" id=4]
+resource_name = "extinction"
+step = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/intensity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.5, 0.4, 0.3, 0.2, 0.1, 0.0 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "ignition"
+step = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/intensity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.1, 0.2, 0.3, 0.4, 0.5 ]
+}
+
+[node name="LaserField" type="Sprite"]
+material = SubResource( 1 )
+position = Vector2( 0, -25.3619 )
+scale = Vector2( 1, 0.90093 )
+texture = SubResource( 3 )
+script = ExtResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/extinction = SubResource( 4 )
+anims/ignition = SubResource( 5 )
+
+[node name="Light2D" type="Light2D" parent="."]
+self_modulate = Color( 0.773438, 0.175232, 0.175232, 1 )
+position = Vector2( 1.08794, 0.0815946 )
+scale = Vector2( 1.28576, 1.2182 )
+texture = ExtResource( 3 )

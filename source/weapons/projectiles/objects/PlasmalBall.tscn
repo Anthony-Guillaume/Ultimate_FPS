@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/animations/projectiles/PlasmaBall.tscn" type="PackedScene" id=1]
 [ext_resource path="res://source/weapons/projectiles/objects/PlasmalBall.gd" type="Script" id=2]
+[ext_resource path="res://assets/lights/light_sphere002.png" type="Texture" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 12.1502
@@ -17,3 +18,9 @@ script = ExtResource( 2 )
 shape = SubResource( 1 )
 
 [node name="PlasmaBall" parent="." instance=ExtResource( 1 )]
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( -1.58593, 0.985475 )
+scale = Vector2( 0.0534313, 0.0562865 )
+texture = ExtResource( 3 )
+energy = 1.31

@@ -9,46 +9,59 @@ var reloadDuration : float = 2.5
 onready var top : Sprite = $Top
 onready var timer : Timer = $Timer
 
+var sm : StateMachine = StateMachine.new()
+
 func get_class() -> String:
 	return "Turret"
 
 func _ready() -> void:
-	weaponSet.get_child(0).connect("empty", self, "_on_weapon_empty")
-	states = { 	"WATCHING" : "handleWatching",
-				"COMBATTING" : "handleCombatting",
-				"RELOADING" : "handleReloading"}
-	changeStateTo("WATCHING")
+	weaponSet.getWeapons()[0].connect("empty", self, "_on_weapon_empty")
+	# states = { 	"WATCHING" : "handleWatching",
+	# 			"COMBATTING" : "handleCombatting",
+	# 			"RELOADING" : "handleReloading"}
+	states = { 	"WATCHING" : State.new(self, "", "", "handleWatching"),
+				"COMBATTING" : State.new(self, "", "", "handleCombatting"),
+				"RELOADING" : State.new(self, "", "", "handleReloading")}
+	sm.setStates(states)
+	add_child(sm)
+	sm.startWithState("WATCHING")
+	# changeStateTo("WATCHING")
 
-func _process(_delta : float) -> void:
-	label.set_text(str(states[state]))
+#func _process(_delta : float) -> void:
+#	label.set_text((states[state]))
 
-func _physics_process(delta : float) -> void:
-	stateHandler.call_func(delta)
+#func _physics_process(delta : float) -> void:
+#	stateHandler.call_func(delta)
 
 func handleWatching(delta : float) -> void:
 	smoothRotationTo(global_position + Vector2.RIGHT * 1000, delta)
 	if player.global_position.distance_to(global_position) < 200.0:
-		changeStateTo("COMBATTING")
+		# changeStateTo("COMBATTING")
+		sm.changeState(states["COMBATTING"])
 
 func handleCombatting(delta : float) -> void:
 	if player.global_position.distance_to(global_position) > 200.0:
-		changeStateTo("WATCHING")
+		# changeStateTo("WATCHING")
+		sm.changeState(states["WATCHING"])
 	else:
 		smoothRotationTo(player.global_position, delta)
 		fire()
 
-func handleReloading(delta : float) -> void:
+func handleReloading(_delta : float) -> void:
 	if timer.get_time_left() < 0.005:
-		changeStateTo("WATCHING")
+		# changeStateTo("WATCHING")
+		sm.changeState(states["WATCHING"])
+
 
 func _on_weapon_empty() -> void:
 	timer.start(reloadDuration)
-	changeStateTo("RELOADING")
+	# changeStateTo("RELOADING")
+	sm.changeState(states["RELOADING"])
 	weaponSet.addAmmoByIndex(0, 50)
 
 func fire() -> void:
 	if abs(top.get_angle_to(player.global_position)) < PI * 0.3:
-		weaponSet.fireByIndex(0)
+		weaponSet.fire()
 
 func smoothRotationTo(target : Vector2, delta : float) -> void:
 	muzzle.position = Vector2.ZERO

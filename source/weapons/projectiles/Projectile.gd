@@ -3,7 +3,7 @@ extends Area2D
 class_name Projectile
 
 var damage : float = 20.0
-var speed : float = 600.0
+var speed : float = 1700.0
 
 var _shooter = null
 

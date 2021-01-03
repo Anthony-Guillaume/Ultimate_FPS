@@ -9,10 +9,10 @@ enum STATES { 	RUNNING,
 				FALLING }
 
 var stateHandlers : Dictionary = {	STATES.RUNNING: "handleRunningState",
-										STATES.JUMPING: "handleJumpingState",
-										STATES.DIVING: "handleDivingState",
-										STATES.CLIMBING: "handleClimbingState",
-										STATES.FALLING: "handleFallingState" }
+									STATES.JUMPING: "handleJumpingState",
+									STATES.DIVING: "handleDivingState",
+									STATES.CLIMBING: "handleClimbingState",
+									STATES.FALLING: "handleFallingState" }
 
 var stateHandler : FuncRef = funcref(self, stateHandlers[STATES.RUNNING]);
 
@@ -29,7 +29,7 @@ var airRunningCoefficient : float = 0.8
 var wallJumpForce : Vector2 = Vector2(280, 0)
 var climbSpeed : float = 450.0
 var minimalVelocityToBeFalling : float = 1500.0
-var weaponIndex : int = 0
+
 
 onready var hitboxHalfWidth : float = $CollisionShape2D.shape.get_radius()
 onready var hitboxHalfHeight : float = $CollisionShape2D.shape.get_height()
@@ -47,11 +47,24 @@ func get_class() -> String:
 
 func _ready() -> void:
 	hud.initialize(stats.health, weaponSet)
+	show()
 
 func _physics_process(delta : float) -> void:
 	handleChangeWeaponInput()
 	stateHandler.call_func(delta)
 	move_and_slide_with_snap(velocity, snap, WorldInfo.FLOOR_NORMAL)
+
+func hide() -> void:
+	.hide()
+	for child in $CanvasLayer.get_children():
+		if child.has_method("hide"):
+			child.hide()
+
+func show() -> void:
+	.show()
+	for child in $CanvasLayer.get_children():
+		if child.has_method("show"):
+			child.show()
 
 func computeWallCollisionSide() -> int:
 	var spaceState : Physics2DDirectSpaceState = get_world_2d().get_direct_space_state()
@@ -135,6 +148,7 @@ func handleDivingState(delta : float) -> void:
 	endureGravity(delta)
 
 func handleClimbingState(delta : float) -> void:
+	handleShootInput()
 	var wallCollisionSide : int = computeWallCollisionSide()
 	_wallSkid(wallCollisionSide, delta)
 	labelState.self_modulate = Color.white
@@ -201,15 +215,9 @@ func handleClimbInput() -> void:
 
 func handleChangeWeaponInput() -> void:
 	if Input.is_action_just_released("next_weapon"):
-		if weaponIndex == weaponSet.get_child_count() - 1:
-			weaponIndex = 0
-		else:
-			weaponIndex += 1
+		weaponSet.switchToNextWeapon()
 	elif Input.is_action_just_released("previous_weapon"):
-		if weaponIndex == 0:
-			weaponIndex = weaponSet.get_child_count() - 1
-		else:
-			weaponIndex -= 1
+		weaponSet.switchToPreviousWeapon()
 
 # ACTIONS
 
@@ -252,7 +260,7 @@ func _wallJump(direction : float) -> void:
 	_jump()
 
 func _shoot() -> void:
-	weaponSet.fireByIndex(weaponIndex)
+	weaponSet.fire()
 
 func _wallSkid(wallCollisionSide : int, delta : float) -> void:
 	var direction : int = int(Input.get_action_strength("move_right") - Input.get_action_strength("move_left"))

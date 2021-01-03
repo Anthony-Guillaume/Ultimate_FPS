@@ -57,7 +57,7 @@ func changeStateTo(newState : String) -> void:
 func canFall() -> bool:
 	var spaceState : Physics2DDirectSpaceState = get_world_2d().get_direct_space_state()
 	var from : Vector2 = global_position + Vector2(hitboxHalfWidth * 1.5, 0.0) * runDirection
-	var to : Vector2 = from + Vector2(0.0, hitboxHalfHeight + 15.0)
+	var to : Vector2 = from + Vector2(0.0, hitboxHalfHeight + 30.0)
 	var collisionInfo : Dictionary = spaceState.intersect_ray(from, to, [], WorldInfo.getUntraversableOjectLayer())
 	return collisionInfo.empty()
 
@@ -125,7 +125,7 @@ func attackPlayer(attackName : String) -> void:
 	stand()
 	facePlayer()
 	attackDirection = (player.global_position - global_position).normalized()
-	weaponSet.fire(attackName)
+	weaponSet.fire()
 
 func stand() -> void:
 	velocity.x = 0.0

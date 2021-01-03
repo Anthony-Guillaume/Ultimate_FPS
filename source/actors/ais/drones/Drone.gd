@@ -12,7 +12,7 @@ func get_class() -> String:
 	return "Drone"
 
 func _ready() -> void:
-	weaponSet.get_child(0).connect("empty", self, "_on_weapon_empty")
+	weaponSet.getWeapons()[0].connect("empty", self, "_on_weapon_empty")
 	states = { 	"PATROLLING" : "handlePatrolling",
 				"COMBATTING" : "handleCombatting",
 				"RELOADING" : "handleReloading"}
@@ -49,13 +49,13 @@ func _on_weapon_empty() -> void:
 	weaponSet.addAmmoByIndex(0, 50)
 
 func fire() -> void:
-	weaponSet.fireByIndex(0)
+	weaponSet.fire()
 
 func patrol() -> void:
 	if is_on_wall():
 		changeDirection()
 	moveForward()
-	rotateMuzzle(global_position + velocity)	
+	rotateMuzzle(global_position + velocity)
 
 func rotateMuzzle(destination : Vector2) -> void:
 	muzzle.position = Vector2.ZERO
