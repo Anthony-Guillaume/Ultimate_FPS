@@ -13,39 +13,67 @@ func get_class() -> String:
 
 func _ready() -> void:
 	weaponSet.getWeapons()[0].connect("empty", self, "_on_weapon_empty")
-	states = { 	"PATROLLING" : "handlePatrolling",
-				"COMBATTING" : "handleCombatting",
-				"RELOADING" : "handleReloading"}
-	changeStateTo("PATROLLING")
 	animation.setup(self, weaponSet, muzzle)
+	var states : Dictionary = { "PATROLLING" : State.new(self, "", "", "handlePatrolling"),
+								"COMBATTING" : State.new(self, "", "", "handleCombatting"),
+								"RELOADING" : State.new(self, "", "", "handleReloading"),
+								"DEATH" : State.new(self, "onStartDeath", "onEndDeath", "handleDeath")}
+	sm.setStates(states)
+	sm.startWithState("PATROLLING")
 
 func _process(_delta : float) -> void:
-	label.set_text(str(states[state]))
+	label.set_text(sm.getCurrentState())
 
-func _physics_process(delta : float) -> void:
-	stateHandler.call_func(delta)
-	move_and_slide(velocity)
+###############################################################
+##### STATE HANDLERS
+###############################################################
 
-func handlePatrolling(delta : float) -> void:
+func handlePatrolling(_delta : float) -> void:
 	patrol()
 	if player.global_position.distance_to(global_position) < sightDistance:
-		changeStateTo("COMBATTING")
+		sm.changeState("COMBATTING")
 		stand()
+	move_and_slide(velocity)
 
-func handleCombatting(delta : float) -> void:
+###############################################################
+
+func handleCombatting(_delta : float) -> void:
 	if player.global_position.distance_to(global_position) > sightDistance:
-		changeStateTo("PATROLLING")
+		sm.changeState("PATROLLING")
 	else:
 		rotateMuzzle(player.global_position)
 		fire()
+	move_and_slide(velocity)
 
-func handleReloading(delta : float) -> void:
+###############################################################
+
+func handleReloading(_delta : float) -> void:
 	if timer.get_time_left() < 0.005:
-		changeStateTo("PATROLLING")
+		sm.changeState("PATROLLING")
+	move_and_slide(velocity)
+
+###############################################################
+
+func handleDeath(_delta : float) -> void:
+	if timer.get_time_left() < 0.1:
+		sm.end()
+		emit_signal("death")
+
+func onStartDeath() -> void:
+	$CollisionShape2D.set_deferred("disabled", true)
+	var deathDuration : float = 0.7
+	$DroneAnimation.playDeath(deathDuration)
+	timer.start(deathDuration)
+
+func onEndDeath() -> void:
+	emit_signal("death")
+
+###############################################################
+###############################################################
 
 func _on_weapon_empty() -> void:
 	timer.start(reloadDuration)
-	changeStateTo("RELOADING")
+	sm.changeState("RELOADING")
 	weaponSet.addAmmoByIndex(0, 50)
 
 func fire() -> void:

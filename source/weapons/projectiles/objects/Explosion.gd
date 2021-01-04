@@ -5,7 +5,7 @@ class_name Explosion
 var damage : float = 100.0
 var radius : float = 100.0
 var knockbackForce : float = 500.0
-var duration : float = 1.0
+var duration : float = 0.31
 
 var targets : Array = []
 

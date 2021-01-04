@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://assets/spriteSheets/Plasma Drone_idle_sheet.png" type="Texture" id=1]
 [ext_resource path="res://source/weapons/WeaponSet.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://source/actors/ais/drones/DroneAnimation.gd" type="Script" id=8]
 [ext_resource path="res://assets/lights/light_sphere001.png" type="Texture" id=9]
 [ext_resource path="res://assets/lights/light002.png" type="Texture" id=10]
+[ext_resource path="res://source/actors/states/StateMachine.gd" type="Script" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 22.5883, 39.0236 )
@@ -488,5 +489,8 @@ color = Color( 0.792157, 0.0588235, 1, 1 )
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 11 )
 
 [editable path="WeaponSet"]

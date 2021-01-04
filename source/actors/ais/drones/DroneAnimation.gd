@@ -14,7 +14,6 @@ func setup(drone : Drone, weaponSet : WeaponSet, muzzle : Position2D) -> void:
 	weaponSet.getWeapons()[0].connect("shoot", self, "_on_shoot")
 	_muzzle = muzzle
 	_drone = drone
-	_drone.connect("death", self, "_on_death")
 	animation.play("move")
 
 func _process(_delta : float) -> void:
@@ -23,11 +22,12 @@ func _process(_delta : float) -> void:
 func flip() -> void:
 	scale.x = 1 if _drone.velocity.x < 0 else -1
 
-func _on_shoot() -> void:
-	animation.play("fire")
-
-func _on_death() -> void:
-	animation.play("explode")
+func playDeath(duration : float = 1.0) -> void:
+	animation.play("explode", -1, 1.0 / duration)
 
 func _on_animation_finished(animationName : String) -> void:
-	animation.play("move")
+	if animationName != "explode":
+		animation.play("move")
+
+func _on_shoot() -> void:
+	animation.play("fire")

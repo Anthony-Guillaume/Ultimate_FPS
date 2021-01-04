@@ -2,15 +2,9 @@ extends Actor
 
 class_name BaseAi
 
-signal runDirectionChanged(newDirection)
-
 enum DIRECTION { 	LEFT = -1,
 					UNDEFINED = 0,
 					RIGHT = 1 }
-
-var state : String = ""
-var states : Dictionary = {} # state name : handle method name ( MUST HAVE delta as parameter and void return)
-var stateHandler : FuncRef = funcref(self, "")
 
 var player : BasePlayer = null
 var runDirection : int = DIRECTION.RIGHT
@@ -22,6 +16,7 @@ const minimalStepDistance : float = 30.0
 
 onready var hitboxHalfWidth : float = $CollisionShape2D.shape.get_extents().x
 onready var hitboxHalfHeight : float = $CollisionShape2D.shape.get_extents().y
+onready var sm : StateMachine = $StateMachine
 
 # DEBUG PART
 onready var label : Label = $Label
@@ -33,7 +28,6 @@ func _draw() -> void:
 
 func _process(_delta):
 	update()
-#
 
 func get_class() -> String:
 	return "BaseAi"
@@ -41,14 +35,9 @@ func get_class() -> String:
 func setup(player : BasePlayer) -> void:
 	self.player = player
 
-func changeStateHandler(newState : String) -> void:
-	stateHandler.set_function(newState)
-
-func changeStateTo(newState : String) -> void:
-	state = newState
-	stateHandler.set_function(states[newState])
-	label.set_text(state)
-	emit_signal("stateChanged", newState)
+func _on_health_changed(value : float) -> void:
+	if value < 0.1:
+		sm.changeState("DEATH")
 
 ################################################################################
 # BASIC CONDITIONS

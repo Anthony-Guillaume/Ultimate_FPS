@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/sprites/rocket001.png" type="Texture" id=1]
+[ext_resource path="res://assets/lights/light_sphere001.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/smoke1.png" type="Texture" id=3]
+
+[sub_resource type="ParticlesMaterial" id=1]
+flag_disable_z = true
+direction = Vector3( -1, 0, 0 )
+spread = 30.0
+gravity = Vector3( 10, 0, 0 )
+initial_velocity = 100.0
+initial_velocity_random = 0.3
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+
+[node name="RocketAnimation" type="Node2D"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( -2.33857, -0.195419 )
+scale = Vector2( 0.121004, 0.0462715 )
+texture = ExtResource( 2 )
+energy = 1.8
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Particles2D" type="Particles2D" parent="."]
+light_mask = 0
+position = Vector2( -13.3292, -0.56123 )
+scale = Vector2( 1, 1 )
+amount = 6
+lifetime = 2.0
+process_material = SubResource( 1 )
+texture = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="."]
+self_modulate = Color( 0.243137, 0.34902, 0.501961, 1 )
+rotation = 1.5708
+scale = Vector2( 0.194841, 0.101295 )
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
