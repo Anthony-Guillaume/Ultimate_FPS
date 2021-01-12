@@ -26,34 +26,37 @@ func _process(_delta : float) -> void:
 ##### STATE HANDLERS
 ###############################################################
 
-func handlePatrolling(_delta : float) -> void:
+func handlePatrolling(delta : float) -> void:
 	patrol()
 	if player.global_position.distance_to(global_position) < meleeReach:
 		sm.changeState("COMBATTING")
 		stand()
+	endureGravity(delta)
 	move_and_slide(velocity, Vector2.UP)
 
 ###############################################################
 
-func handleCombatting(_delta : float) -> void:
+func handleCombatting(delta : float) -> void:
 	if player.global_position.distance_to(global_position) > meleeReach:
 		sm.changeState("PATROLLING")
 	else:
 		rotateMuzzle(player.global_position)
 		fire()
+	endureGravity(delta)
 	move_and_slide(velocity, Vector2.UP)
 
 ###############################################################
 
-func handleReloading(_delta : float) -> void:
-	if timer.get_time_left() < 0.005:
+func handleReloading(delta : float) -> void:
+	if is_zero_approx(timer.get_time_left()):
 		sm.changeState("PATROLLING")
+	endureGravity(delta)
 	move_and_slide(velocity, Vector2.UP)
 
 ###############################################################
 
 func handleDeath(_delta : float) -> void:
-	if timer.get_time_left() < 0.1:
+	if is_zero_approx(timer.get_time_left()):
 		sm.end()
 		emit_signal("death")
 

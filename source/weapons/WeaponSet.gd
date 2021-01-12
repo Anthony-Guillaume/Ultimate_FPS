@@ -4,7 +4,6 @@ class_name WeaponSet
 
 signal weaponAdded(weapon)
 
-const epsilon : float = 0.0001
 const NO_WEAPON_INDEX : int = -1
 
 var _projectileStore : Node = null
@@ -43,7 +42,7 @@ func addWeapon(weaponName : String) -> void:
 		emit_signal("weaponAdded", weapon)
 
 func fire() -> void:
-	if _timer.get_time_left() < epsilon and _weaponIndex != NO_WEAPON_INDEX:
+	if is_zero_approx(_timer.get_time_left()) and _weaponIndex != NO_WEAPON_INDEX:
 		_weapons.get_child(_weaponIndex).fire()
 
 func has(weaponName : String) -> bool:

@@ -45,13 +45,13 @@ func handleCombatting(delta : float) -> void:
 ###############################################################
 
 func handleReloading(_delta : float) -> void:
-	if timer.get_time_left() < 0.005:
+	if is_zero_approx(timer.get_time_left()):
 		sm.changeState("WATCHING")
 
 ###############################################################
 
 func handleDeath(_delta : float) -> void:
-	if timer.get_time_left() < 0.1:
+	if is_zero_approx(timer.get_time_left()):
 		sm.end()
 		emit_signal("death")
 

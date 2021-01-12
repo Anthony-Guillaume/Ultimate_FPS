@@ -14,8 +14,8 @@ export var securityDistance : float = 200.0
 
 const minimalStepDistance : float = 30.0
 
-onready var hitboxHalfWidth : float = $CollisionShape2D.shape.get_extents().x
-onready var hitboxHalfHeight : float = $CollisionShape2D.shape.get_extents().y
+onready var hitboxHalfWidth : float = 30#$CollisionShape2D.shape.get_extents().x
+onready var hitboxHalfHeight : float = 30#$CollisionShape2D.shape.get_extents().y
 onready var sm : StateMachine = $StateMachine
 
 # DEBUG PART
@@ -73,7 +73,7 @@ func isPlayerInSight() -> bool:
 func isRaycastIntersectPlayer() -> bool:
 	var spaceState : Physics2DDirectSpaceState = get_world_2d().get_direct_space_state()
 	var collisionInfo : Dictionary = spaceState.intersect_ray(global_position, player.global_position, [], WorldInfo.getUntraversableOjectLayer() + WorldInfo.LAYER.PLAYER)
-	return collisionInfo.collider == player
+	return not collisionInfo.empty() and collisionInfo.collider == player
 
 func isPlayerInsideDistance(distance : float) -> bool:
 	return player.global_position.distance_to(global_position) < distance

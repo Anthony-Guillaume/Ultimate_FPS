@@ -6,10 +6,8 @@ signal shoot()
 signal ammo_gained()
 signal empty()
 
-const epsilon : float = 0.0001
-
-var _maxAmmo : int = 50
-var _ammo : int = 25
+var _maxAmmo : int = 1000
+var _ammo : int = 1000
 var _cooldown : float = 0.1
 var _projectileScene : PackedScene
 var _projectileStore : Node
@@ -39,7 +37,7 @@ func fire() -> void:
 			emit_signal("empty")
 
 func canFire() -> bool:
-	return _ammo > 0 and _timer.get_time_left() < epsilon
+	return _ammo > 0 and is_zero_approx(_timer.get_time_left())
 
 func addAmmo(amount : int) -> void:
 	_ammo = min(_maxAmmo, _ammo + amount)

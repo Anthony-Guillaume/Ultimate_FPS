@@ -24,8 +24,8 @@ func changeState(stateName : String) -> void:
 func startWithState(stateName : String) -> void:
 	_state = _states[stateName]
 	_stateName = stateName
-	if _state.onExit != null:
-		_state.onExit.call_func()
+	if _state.onStart != null:
+		_state.onStart.call_func()
 	emit_signal("stateChanged", _stateName)
 
 func setStates(states : Dictionary) -> void:
