@@ -28,23 +28,39 @@ func setup(shooter) -> void:
 func _ready() -> void:
 	timer.connect("timeout", self, "_on_timer_timeout")
 	hitbox.connect("body_entered", self, "_on_body_entered")
+	raycast.cast_to *= maxReach
 	var beamLength : float = computeBeamLength()
 	$Hitbox/CollisionShape2D.shape.set_b(Vector2.RIGHT * beamLength)
 	$Animation.setup(beamLength, duration)
 	timer.start(duration)
 
 func computeBeamLength() -> float:
-	raycast.cast_to *= maxReach
-	raycast.force_raycast_update()
-	if raycast.is_colliding():
-		return to_local(raycast.get_collision_point()).length()
-	return maxReach
+	var numberOfTry : int = 12
+	var length : float = maxReach
+	for i in numberOfTry:
+		raycast.force_raycast_update()
+		if not raycast.is_colliding():
+			break
+		var collider : Object = raycast.get_collider()
+		if isCollidingWithProjectileBlocker(collider) and canPassThroughProjectileBlocker(collider):
+			raycast.add_exception(collider)
+		else:
+			length = to_local(raycast.get_collision_point()).length()
+			break
+	raycast.clear_exceptions()
+	return length
 
-func _on_timer_timeout() -> void:
-	queue_free()
+func isCollidingWithProjectileBlocker(collider : Object) -> bool:
+	return collider.get_collision_layer_bit(WorldInfo.LAYER_BIT.PROJECTILE_BLOCKER)
 
-func _on_body_entered(target : Actor) -> void:
-	if target == _shooter or targets.has(target) or target.get_collision_layer() != ennemyLayer:
+func canPassThroughProjectileBlocker(projectileBlocker) -> bool:
+	return projectileBlocker.isProjectileAlongBlockDirection(transform.x)
+
+func _on_body_entered(target : Object) -> void:
+	if target == _shooter or target.get_collision_layer() != ennemyLayer or targets.has(target):
 		return
 	targets.push_back(target)
 	ActorStatusHandler.applyDamage(target, damage)
+
+func _on_timer_timeout() -> void:
+	queue_free()

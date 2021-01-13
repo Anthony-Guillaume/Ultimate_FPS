@@ -26,9 +26,14 @@ func setup(shooter) -> void:
 func _physics_process(delta : float) -> void:
 	position += transform.x * speed * delta
 
-func _on_body_entered(target) -> void:
+func _on_body_entered(target : Object) -> void:
 	if target == _shooter:
+		return
+	if target.get_collision_layer() == WorldInfo.LAYER.PROJECTILE_BLOCKER and not target.isProjectileAlongBlockDirection(transform.x):
 		return
 	if target.get_collision_layer() == ennemyLayer:
 		ActorStatusHandler.applyDamage(target, damage)
+	startSelfDestruction()
+
+func startSelfDestruction() -> void:
 	queue_free()

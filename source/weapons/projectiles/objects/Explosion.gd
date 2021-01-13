@@ -25,14 +25,14 @@ func _ready() -> void:
 	animation.play(duration)
 	timer.start(duration)
 
-func _on_body_entered(target : Actor) -> void:
-	if targets.has(target):
+func _on_body_entered(target) -> void:
+	if targets.has(target) or target.get_collision_layer() == WorldInfo.LAYER.PROJECTILE_BLOCKER:
 		return
 	targets.push_back(target)
 	var impact : Vector2 = getClosestImpactPoint(target)
 	ActorStatusHandler.applyKnockbackFromExplosion(target, global_position, impact, radius, knockbackForce, damage)
 
-func getClosestImpactPoint(target : Actor) -> Vector2:
+func getClosestImpactPoint(target) -> Vector2:
 	raycast.cast_to = (target.global_position - global_position).normalized() * radius
 	raycast.force_raycast_update()
 	var collider : Actor = raycast.get_collider()

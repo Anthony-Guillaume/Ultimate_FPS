@@ -10,7 +10,7 @@ enum LAYER {	WORLD = int(pow(2, 0)),
 				PROJECTILE = int(pow(2, 4)),
 				GRAPPABLE = int(pow(2, 5)),
 				LOOTABLE = int(pow(2, 6)),
-				PLAFORM_ONE_WAY = int(pow(2, 7)) }
+				PROJECTILE_BLOCKER = int(pow(2, 7)) }
 
 enum LAYER_BIT {	WORLD = 0,
 					CLIMBABLE = 1,
@@ -19,7 +19,7 @@ enum LAYER_BIT {	WORLD = 0,
 					PROJECTILE = 4,
 					GRAPPABLE = 5,
 					LOOTABLE = 6,
-					PLAFORM_ONE_WAY = 7 }
+					PROJECTILE_BLOCKER = 7 }
 
 func getUntraversableOjectLayer() -> int:
-	return LAYER.WORLD + LAYER.CLIMBABLE + LAYER.PLAFORM_ONE_WAY
+	return LAYER.WORLD + LAYER.CLIMBABLE

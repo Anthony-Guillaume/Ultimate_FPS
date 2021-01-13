@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://source/actors/ais/stickies/StickyAi.gd" type="Script" id=1]
+[ext_resource path="res://source/weapons/WeaponSet.tscn" type="PackedScene" id=2]
+[ext_resource path="res://source/actors/ais/MuzzleAi.gd" type="Script" id=3]
+[ext_resource path="res://icon.png" type="Texture" id=4]
+[ext_resource path="res://source/weapons/Gun.tscn" type="PackedScene" id=5]
+[ext_resource path="res://source/actors/states/StateMachine.gd" type="Script" id=11]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 20.9439
+
+[node name="StickyAi" type="KinematicBody2D"]
+collision_layer = 8
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.630005, -3.14981 )
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="WeaponSet" parent="." instance=ExtResource( 2 )]
+
+[node name="Gun" parent="WeaponSet/Weapons" index="0" instance=ExtResource( 5 )]
+
+[node name="Muzzle" type="Position2D" parent="."]
+script = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = -21.827
+margin_top = -48.9994
+margin_right = 18.173
+margin_bottom = -34.9994
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 11 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0.333694, -3.00339 )
+scale = Vector2( 0.53072, 0.53072 )
+texture = ExtResource( 4 )
+
+[editable path="WeaponSet"]

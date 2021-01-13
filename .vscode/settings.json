@@ -8,5 +8,14 @@
         "**/**/**.depren": true,
         "**/**/**.tres": true
       },
-      "godot_tools.editor_path": "C:\\Users\\aguil\\OneDrive\\Desktop\\Godot"
+      "godot_tools.editor_path": "C:\\Users\\aguil\\OneDrive\\Desktop\\Godot",
+      "editor.tokenColorCustomizations": {
+        // "comments": "#f00",
+        // "strings": "#f00",
+        // "keywords": "#f00",
+        // "numbers": "#f00",
+        "types": "#b4f1e4",
+        // "functions": "#f00",
+        // "variables": "#832828"
+     }
 }
