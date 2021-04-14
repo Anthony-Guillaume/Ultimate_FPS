@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/gut/plugin_control.gd" type="Script" id=1]
+
+[node name="UnitTestRunner" type="Control"]
+margin_right = 1019.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 740, 250 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+_background_color = Color( 0.231373, 0.160784, 0.160784, 1 )
+_file_prefix = "Test"
+_directory1 = "res://source/actors/utils/ut"

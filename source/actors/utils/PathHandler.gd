@@ -3,7 +3,7 @@ extends Reference
 class_name PathHandler
 
 var pathPoints : PoolVector2Array
-var threshold : float = 60.0
+var threshold : float = 30.0
 var _index : int = 0
 
 func get_class() -> String:

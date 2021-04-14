@@ -1,5 +1,9 @@
 extends BaseAi
 
+"""
+Animation : pour prévenir du tir de rocket iminent le mettre sur un genoux PUIS tirer
+"""
+
 class_name Soldier
 
 var muzzleDistance : float = 80.0

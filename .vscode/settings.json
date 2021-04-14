@@ -12,9 +12,12 @@
       "editor.tokenColorCustomizations": {
         // "comments": "#f00",
         // "strings": "#f00",
-        // "keywords": "#f00",
+        "keywords": "#ff3c01da",
         // "numbers": "#f00",
-        "types": "#b4f1e4",
+        "types":{
+          // "fontStyle": "bold",
+          "foreground": "#41fdd5"
+        }
         // "functions": "#f00",
         // "variables": "#832828"
      }

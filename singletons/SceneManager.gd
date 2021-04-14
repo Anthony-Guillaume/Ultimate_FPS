@@ -28,10 +28,8 @@ func _setMenuScenes() -> void:
 	_currentMenuScene = "MainMenu"
 
 func _setLevelScenes() -> void:
-#	_levelScenes["Level0"] = SceneData.new(preload("res://source/levels/Level0.tscn"))
-#	_levelScenes["Level1"] = SceneData.new(preload("res://source/levels/Level1.tscn"))
-#	_levelScenes["Level2"] = SceneData.new(preload("res://source/levels/Level2.tscn"))
-	_levelScenes["Level3"] = SceneData.new(preload("res://source/levels/Level3.tscn"))
+	_levelScenes["TEST"] = SceneData.new(preload("res://source/levels/Level3.tscn"))
+	_levelScenes["LEVEL"] = SceneData.new(preload("res://source/levels/Level4.tscn"))
 
 func getLoadAndSaveNode() -> Array:
 	var nodes : Array = []

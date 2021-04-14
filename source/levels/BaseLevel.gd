@@ -6,7 +6,6 @@ onready var _player : BasePlayer = $Actors/Player/BasePlayer
 onready var _ais : Node2D = $Actors/Ais
 onready var sceneTransitor : SceneTransitor = $SceneTransitor
 onready var skillStore : Node = $SkillStore
-onready var navigation : Navigation2D = $Navigation2D
 
 var duration : float = 0.0
 var secretFound : int = 0

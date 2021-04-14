@@ -4,7 +4,7 @@ class_name StateMachine
 
 signal stateChanged(stateName)
 
-var _endState : State = State.new(self, "", "", "_handleStop")
+var _endState : State = State.new(self, "_enterEnd", "", "_handleEnd")
 var _states : Dictionary = {}
 var _stateName : String = ""
 var _state : State = _endState
@@ -26,7 +26,8 @@ func startWithState(stateName : String) -> void:
 	_stateName = stateName
 	if _state.onStart != null:
 		_state.onStart.call_func()
-	emit_signal("stateChanged", _stateName)
+	set_physics_process(true)
+	emit_signal("stateChanged", _stateName)	
 
 func setStates(states : Dictionary) -> void:
 	_states = states
@@ -38,7 +39,10 @@ func end() -> void:
 	_state = _endState
 	_stateName = "END"
 
-func _handleStop(_delta : float) -> void:
+func _enterEnd() -> void:
+	set_physics_process(false)
+
+func _handleEnd(_delta : float) -> void:
 	return
 
 func _physics_process(delta : float) -> void:

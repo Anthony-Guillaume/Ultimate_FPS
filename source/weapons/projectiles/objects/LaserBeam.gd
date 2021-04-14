@@ -14,6 +14,8 @@ var duration : float = 0.18
 onready var timer : Timer = $Timer
 onready var raycast : RayCast2D = $RayCast2D
 onready var hitbox : Area2D = $Hitbox
+onready var hitboxShape : CollisionShape2D = $Hitbox/CollisionShape2D
+onready var animation : Node2D = $LaserBeamAnimation
 
 func get_class() -> String:
 	return "LaserBeam"
@@ -30,8 +32,8 @@ func _ready() -> void:
 	hitbox.connect("body_entered", self, "_on_body_entered")
 	raycast.cast_to *= maxReach
 	var beamLength : float = computeBeamLength()
-	$Hitbox/CollisionShape2D.shape.set_b(Vector2.RIGHT * beamLength)
-	$Animation.setup(beamLength, duration)
+	hitboxShape.shape.set_b(Vector2.RIGHT * beamLength)
+	animation.setup(beamLength, duration)
 	timer.start(duration)
 
 func computeBeamLength() -> float:

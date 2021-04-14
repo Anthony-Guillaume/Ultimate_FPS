@@ -2,25 +2,29 @@ extends BaseAi
 
 class_name Drone
 
+export var pathNode : NodePath
+export var cyclycPatrolling : bool = true
+
 var muzzleDistance : float = 80.0
 var reloadDuration : float = 1.8
 var direction : Vector2 = Vector2.ZERO
 var navigation : Navigation2D = null
+var steeringHandler : SteeringHandler = SteeringHandler.new()
+var pathHandler : PathHandler = null
+var combatHandler : CombatMovementHandler = CombatMovementHandler.new()
 
 onready var timer : Timer = $Timer
 onready var animation : Node2D = $DroneAnimation
-
 onready var contextMap : ContextMap = $ContextMap
-var steeringHandler : SteeringHandler = SteeringHandler.new()
-var pathHandler : PathHandler = CyclicPathHandler.new()
-var combatHandler : CombatMovementHandler = CombatMovementHandler.new()
-export var pathNode : NodePath
+
+
 var mass : float = 8.0
 
 func get_class() -> String:
 	return "Drone"
 
 func _ready() -> void:
+	pathHandler = CyclicPathHandler.new() if cyclycPatrolling else BackAndForthPathHandler.new()
 	pathHandler.pathPoints = get_node(pathNode).get_curve().get_baked_points()
 	weaponSet.getWeapons()[0].connect("empty", self, "_on_weapon_empty")
 	animation.setup(self, weaponSet, muzzle)
@@ -51,15 +55,12 @@ func onStartPatrolling() -> void:
 ###############################################################
 
 func handleCombatting(delta : float) -> void:
-	if not isPlayerInsideDistance(sightDistance):
-		sm.changeState("PATROLLING")
-	else:
+	if isPlayerInsideDistance(sightDistance):
 		rotateMuzzle(player.global_position)
 		fire()
+	else:
+		sm.changeState("PATROLLING")
 	combatMovement(delta)
-
-#func onStartCombatting() -> void:
-#	combatHandler.computeRandomDestination(global_position, self, player)
 
 ###############################################################
 

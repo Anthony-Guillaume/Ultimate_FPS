@@ -54,10 +54,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/actors/players/BasePlayer.gd"
 }, {
+"base": "Soldier",
+"class": "Charger",
+"language": "GDScript",
+"path": "res://source/actors/ais/soldiers/Charger.gd"
+}, {
 "base": "Reference",
 "class": "CombatMovementHandler",
 "language": "GDScript",
 "path": "res://source/actors/utils/CombatMovementHandler.gd"
+}, {
+"base": "Reference",
+"class": "CombatTest",
+"language": "GDScript",
+"path": "res://source/actors/states/CombatTest.gd"
 }, {
 "base": "Resource",
 "class": "ConfigData",
@@ -98,6 +108,11 @@ _global_script_classes=[ {
 "class": "Explosion",
 "language": "GDScript",
 "path": "res://source/weapons/projectiles/objects/Explosion.gd"
+}, {
+"base": "Sprite",
+"class": "ExplosionAnimation001",
+"language": "GDScript",
+"path": "res://assets/animations/projectiles/ExplosionAnimation001.gd"
 }, {
 "base": "Explosion",
 "class": "ExplosivePlasmaBall",
@@ -169,10 +184,30 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/weapons/projectiles/objects/LaserBeam.gd"
 }, {
+"base": "Node2D",
+"class": "LaserBeamAnimation",
+"language": "GDScript",
+"path": "res://assets/animations/projectiles/LaserBeamAnimation.gd"
+}, {
+"base": "Node2D",
+"class": "LaserBeamPhantom",
+"language": "GDScript",
+"path": "res://source/weapons/projectiles/objects/LaserBeamPhantom.gd"
+}, {
+"base": "Node2D",
+"class": "LaserBeamPhantomAnimation",
+"language": "GDScript",
+"path": "res://assets/animations/projectiles/LaserBeamPhantomAnimation.gd"
+}, {
 "base": "Weapon",
 "class": "LaserGun",
 "language": "GDScript",
 "path": "res://source/weapons/LaserGun.gd"
+}, {
+"base": "Weapon",
+"class": "LaserGunPhantom",
+"language": "GDScript",
+"path": "res://source/weapons/LaserGunPhantom.gd"
 }, {
 "base": "Menu",
 "class": "LevelMenu",
@@ -229,16 +264,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/menus/PauseMenu.gd"
 }, {
-"base": "Node2D",
-"class": "PhantomLaserBeam",
-"language": "GDScript",
-"path": "res://source/weapons/projectiles/objects/PhantomLaserBeam.gd"
-}, {
-"base": "Projectile",
-"class": "PhantomPistolBall",
-"language": "GDScript",
-"path": "res://source/weapons/projectiles/objects/PhantomPistolBall.gd"
-}, {
 "base": "Area2D",
 "class": "Pikes",
 "language": "GDScript",
@@ -250,9 +275,24 @@ _global_script_classes=[ {
 "path": "res://source/weapons/projectiles/objects/PistolBall.gd"
 }, {
 "base": "Projectile",
+"class": "PistolBallPhantom",
+"language": "GDScript",
+"path": "res://source/weapons/projectiles/objects/PistolBallPhantom.gd"
+}, {
+"base": "Projectile",
 "class": "PlasmaBall",
 "language": "GDScript",
 "path": "res://source/weapons/projectiles/objects/PlasmalBall.gd"
+}, {
+"base": "Sprite",
+"class": "PlasmaBallAnimation",
+"language": "GDScript",
+"path": "res://assets/animations/projectiles/PlasmaBallAnimation.gd"
+}, {
+"base": "Sprite",
+"class": "PlasmaBallExplosionAnimation",
+"language": "GDScript",
+"path": "res://assets/animations/projectiles/PlasmaBallExplosionAnimation.gd"
 }, {
 "base": "Weapon",
 "class": "PlasmaGun",
@@ -328,6 +368,16 @@ _global_script_classes=[ {
 "class": "SkillSlot",
 "language": "GDScript",
 "path": "res://source/hud/elements/SkillSlot.gd"
+}, {
+"base": "Soldier",
+"class": "Sniper",
+"language": "GDScript",
+"path": "res://source/actors/ais/soldiers/Sniper.gd"
+}, {
+"base": "Soldier",
+"class": "SniperMinion",
+"language": "GDScript",
+"path": "res://source/actors/ais/soldiers/SniperMinion.gd"
 }, {
 "base": "BaseAi",
 "class": "Soldier",
@@ -444,7 +494,9 @@ _global_script_class_icons={
 "BaseAi": "",
 "BaseLevel": "",
 "BasePlayer": "",
+"Charger": "",
 "CombatMovementHandler": "",
+"CombatTest": "",
 "ConfigData": "",
 "ContextMap": "",
 "CyclicPathHandler": "",
@@ -453,6 +505,7 @@ _global_script_class_icons={
 "Drone": "",
 "DroneAnimation": "",
 "Explosion": "",
+"ExplosionAnimation001": "",
 "ExplosivePlasmaBall": "",
 "ForceShield": "",
 "Gun": "",
@@ -467,7 +520,11 @@ _global_script_class_icons={
 "JumpTrajectoryCalculator": "",
 "Key": "",
 "LaserBeam": "",
+"LaserBeamAnimation": "",
+"LaserBeamPhantom": "",
+"LaserBeamPhantomAnimation": "",
 "LaserGun": "",
+"LaserGunPhantom": "",
 "LevelMenu": "",
 "LevelNavigatorCompiler": "",
 "Link": "",
@@ -479,11 +536,12 @@ _global_script_class_icons={
 "OptionsMenu": "",
 "PathHandler": "",
 "PauseMenu": "",
-"PhantomLaserBeam": "",
-"PhantomPistolBall": "",
 "Pikes": "",
 "PistolBall": "",
+"PistolBallPhantom": "",
 "PlasmaBall": "",
+"PlasmaBallAnimation": "",
+"PlasmaBallExplosionAnimation": "",
 "PlasmaGun": "",
 "Platform": "",
 "PlatformLink": "",
@@ -499,6 +557,8 @@ _global_script_class_icons={
 "Sfx": "",
 "SkillBar": "",
 "SkillSlot": "",
+"Sniper": "",
+"SniperMinion": "",
 "Soldier": "",
 "SoundMenu": "",
 "State": "",
@@ -541,6 +601,10 @@ RandomUtils="*res://singletons/RandomUtils.gd"
 [debug]
 
 gdscript/warnings/return_value_discarded=false
+
+[editor_plugins]
+
+enabled=PoolStringArray( "gut" )
 
 [input]
 
