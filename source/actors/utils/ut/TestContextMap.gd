@@ -9,7 +9,7 @@ func before_each() -> void:
 func after_each() -> void:
    gut.p("Runs after each test.")
 
-func beforafter_alle_all() -> void:
+func after_all() -> void:
    gut.p("Runs once after all tests.")
 
 func test_assert_eq_number_not_equal() -> void:

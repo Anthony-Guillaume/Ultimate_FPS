@@ -127,7 +127,7 @@ _global_script_classes=[ {
 "base": "Weapon",
 "class": "Gun",
 "language": "GDScript",
-"path": "res://source/weapons/Gun.gd"
+"path": "res://source/weapons/guns/Gun.gd"
 }, {
 "base": "Control",
 "class": "HUD",
@@ -202,12 +202,12 @@ _global_script_classes=[ {
 "base": "Weapon",
 "class": "LaserGun",
 "language": "GDScript",
-"path": "res://source/weapons/LaserGun.gd"
+"path": "res://source/weapons/guns/LaserGun.gd"
 }, {
 "base": "Weapon",
 "class": "LaserGunPhantom",
 "language": "GDScript",
-"path": "res://source/weapons/LaserGunPhantom.gd"
+"path": "res://source/weapons/guns/LaserGunPhantom.gd"
 }, {
 "base": "Menu",
 "class": "LevelMenu",
@@ -297,7 +297,7 @@ _global_script_classes=[ {
 "base": "Weapon",
 "class": "PlasmaGun",
 "language": "GDScript",
-"path": "res://source/weapons/PlasmaGun.gd"
+"path": "res://source/weapons/guns/PlasmaGun.gd"
 }, {
 "base": "Resource",
 "class": "Platform",
@@ -337,7 +337,7 @@ _global_script_classes=[ {
 "base": "Weapon",
 "class": "RocketLauncher",
 "language": "GDScript",
-"path": "res://source/weapons/RocketLauncher.gd"
+"path": "res://source/weapons/guns/RocketLauncher.gd"
 }, {
 "base": "Resource",
 "class": "SceneData",
@@ -474,6 +474,21 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/objects/boxes/WeaponBox.gd"
 }, {
+"base": "Object",
+"class": "WeaponFactory",
+"language": "GDScript",
+"path": "res://source/weapons/WeaponFactory.gd"
+}, {
+"base": "Object",
+"class": "WeaponIconFactory",
+"language": "GDScript",
+"path": "res://source/weapons/WeaponIconFactory.gd"
+}, {
+"base": "Node",
+"class": "WeaponSelector",
+"language": "GDScript",
+"path": "res://source/weapons/WeaponSelector.gd"
+}, {
 "base": "Node2D",
 "class": "WeaponSet",
 "language": "GDScript",
@@ -578,6 +593,9 @@ _global_script_class_icons={
 "Weapon": "",
 "WeaponBar": "",
 "WeaponBox": "",
+"WeaponFactory": "",
+"WeaponIconFactory": "",
+"WeaponSelector": "",
 "WeaponSet": "",
 "WeaponSlot": ""
 }

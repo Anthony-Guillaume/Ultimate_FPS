@@ -4,7 +4,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
+            "label": "generate class && UT",
             "type": "shell",
             "command": "C:\\Users\\aguil\\OneDrive\\Desktop\\tools\\godot_generator.bat",
             "args": [
@@ -12,7 +12,18 @@
                 "${fileDirname}"
             ],
             "group": "build",
-            "presentation": {"echo": true, "reveal": "always", "focus": false, "panel": "shared", "showReuseMessage": false, "clear": true},
+            "presentation": {"echo": false, "reveal": "always", "focus": false, "panel": "shared", "showReuseMessage": false, "clear": true},
+        },
+        {
+            "label": "add UT",
+            "type": "shell",
+            "command": "C:\\Users\\aguil\\OneDrive\\Desktop\\tools\\godot_generator_ut_only.bat",
+            "args": [
+                "${fileBasenameNoExtension}",
+                "${fileDirname}"
+            ],
+            "group": "build",
+            "presentation": {"echo": false, "reveal": "always", "focus": false, "panel": "shared", "showReuseMessage": false, "clear": true},
         }
     ]
 }

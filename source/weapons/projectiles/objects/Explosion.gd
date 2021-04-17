@@ -35,7 +35,7 @@ func _on_body_entered(target) -> void:
 func getClosestImpactPoint(target) -> Vector2:
 	raycast.cast_to = (target.global_position - global_position).normalized() * radius
 	raycast.force_raycast_update()
-	var collider : Actor = raycast.get_collider()
+	var collider = raycast.get_collider()
 	while collider != null and raycast.get_collider() != target:
 		collider = raycast.get_collider()
 		raycast.add_exception(collider)

@@ -46,6 +46,9 @@ func get_class() -> String:
 	return "BasePlayer"
 
 func _ready() -> void:
+	weaponSet.addWeapon(WeaponFactory.weaponsId.gun, 50)
+	weaponSet.addWeapon(WeaponFactory.weaponsId.laserGun, 50)
+	weaponSet.addWeapon(WeaponFactory.weaponsId.rocketLauncher, 50)
 	hud.initialize(stats.health, weaponSet)
 	show()
 

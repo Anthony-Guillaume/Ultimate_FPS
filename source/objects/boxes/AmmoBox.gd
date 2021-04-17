@@ -2,8 +2,8 @@ extends Area2D
 
 class_name AmmoBox
 
-export var weaponName : String = ""
-export var amount : int = 5
+export (WeaponFactory.weaponsId) var weapon
+export var ammo : int = 10
 export var oneShot : bool = false
 export var cooldown : float = 10.0
 
@@ -23,7 +23,8 @@ func _on_body_entered(target : BasePlayer) -> void:
 	if _onCooldown:
 		return
 	_onCooldown = true
-	target.weaponSet.addAmmoByName(weaponName, amount)
+	if target.weaponSet.has(weapon):
+		target.weaponSet.addWeapon(weapon, ammo)
 	sfx.play()
 	if oneShot:
 		queue_free()

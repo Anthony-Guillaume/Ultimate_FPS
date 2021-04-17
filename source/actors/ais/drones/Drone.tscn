@@ -4,9 +4,10 @@
 [ext_resource path="res://source/weapons/WeaponSet.tscn" type="PackedScene" id=2]
 [ext_resource path="res://source/actors/ais/MuzzleAi.gd" type="Script" id=3]
 [ext_resource path="res://source/actors/ais/drones/Drone.gd" type="Script" id=4]
-[ext_resource path="res://source/weapons/Gun.tscn" type="PackedScene" id=5]
+[ext_resource path="res://source/weapons/guns/Gun.tscn" type="PackedScene" id=5]
 [ext_resource path="res://source/actors/utils/ContextMap.tscn" type="PackedScene" id=6]
 [ext_resource path="res://source/actors/states/StateMachine.gd" type="Script" id=11]
+
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 35.496

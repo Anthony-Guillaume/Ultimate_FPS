@@ -1,12 +1,15 @@
 {
     "files.exclude": {
-        "**/.git": false,
+        "**/git": false,
+        "**/**/**.git": false,
         "*/**/**.tscn": true,
+        "*.tscn": true,
         "**/**/**.import": true,
         "**/**/**.cfg": true,
         "**/**/**.godot": true,
         "**/**/**.depren": true,
-        "**/**/**.tres": true
+        "**/**/**.tres": true,
+        "**/**/addons": true
       },
       "godot_tools.editor_path": "C:\\Users\\aguil\\OneDrive\\Desktop\\Godot",
       "editor.tokenColorCustomizations": {

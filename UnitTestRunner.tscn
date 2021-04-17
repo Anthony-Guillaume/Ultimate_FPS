@@ -12,4 +12,4 @@ __meta__ = {
 }
 _background_color = Color( 0.231373, 0.160784, 0.160784, 1 )
 _file_prefix = "Test"
-_directory1 = "res://source/actors/utils/ut"
+_directory1 = "res://source/weapons/ut"

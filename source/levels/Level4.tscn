@@ -119,7 +119,7 @@ __meta__ = {
 }
 
 [node name="BasePlayer" parent="Actors/Player" instance=ExtResource( 6 )]
-position = Vector2( 2659.15, 294.125 )
+position = Vector2( 204.625, 1511.87 )
 baseHealth = 99999.0
 maxHealth = 999999.0
 
@@ -134,8 +134,7 @@ __meta__ = {
 }
 
 [node name="WeaponBox" parent="Boxes" instance=ExtResource( 13 )]
-position = Vector2( 2590.16, 357.349 )
-weaponName = "Gun"
+position = Vector2( 872.309, 1490 )
 
 [node name="HealthBox" parent="Boxes" instance=ExtResource( 9 )]
 position = Vector2( 2634.12, 355.217 )

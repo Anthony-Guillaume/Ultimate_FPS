@@ -2,25 +2,22 @@ extends Node2D
 
 class_name WeaponSet
 
-signal weaponAdded(weapon)
+signal weaponAdded(weapon, weaponId, ammo)
 
 const NO_WEAPON_INDEX : int = -1
 
 var _projectileStore : Node = null
 var _muzzle : Muzzle
 var _shooter 
-var _weaponIndex : int = NO_WEAPON_INDEX
-var _switchWeaponCooldown : float = 0.4
 
 onready var _weapons : Node2D = $Weapons
-onready var _timer : Timer = $Timer
+onready var _weaponSelector : WeaponSelector = $WeaponSelector
 
 func get_class() -> String:
 	return "WeaponSet"
 
 func _ready() -> void:
-	if _weapons.get_child_count() > 0:
-		_weaponIndex = 0
+	_weaponSelector.setup(_weapons.get_children())
 
 func setProjectileStore(projectileStore : Node, muzzle : Muzzle, shooter) -> void:
 	_projectileStore = projectileStore
@@ -32,47 +29,43 @@ func setProjectileStore(projectileStore : Node, muzzle : Muzzle, shooter) -> voi
 func getWeapons() -> Array:
 	return _weapons.get_children()
 
-func addWeapon(weaponName : String) -> void:
-	var weapon : Weapon = load("res://source/weapons/" + weaponName + ".tscn").instance()
-	if has(weaponName):
-		addAmmoByName(weaponName, weapon.getAmmo())
+func addAmmo(weaponId : int, amount : int) -> void:
+	_getWeaponNode(weaponId).ammo += amount
+
+func getAmmo(weaponId : int) -> int:
+	return _getWeaponNode(weaponId).ammo
+
+func addWeapon(weaponId : int, startingAmmo : int) -> void:
+	if has(weaponId):
+		addAmmo(weaponId, startingAmmo)
 	else:
-		weapon.setProjectileStore(_projectileStore, _muzzle, _shooter)
-		_weapons.add_child(weapon)
-		emit_signal("weaponAdded", weapon)
+		_addNewWeapon(weaponId, startingAmmo)
 
 func fire() -> void:
-	if is_zero_approx(_timer.get_time_left()) and _weaponIndex != NO_WEAPON_INDEX:
-		_weapons.get_child(_weaponIndex).fire()
+	if _weaponSelector.canFire():
+		_weapons.get_child(_weaponSelector.weaponIndex).fire()
 
-func has(weaponName : String) -> bool:
-	return has_node(weaponName)
-
-func addAmmoByName(weaponName : String, amount : int) -> void:
-	_weapons.get_node(weaponName).addAmmo(amount)
-
-func addAmmoByIndex(weaponIndex : int, amount : int) -> void:
-	_weapons.get_child(weaponIndex).addAmmo(amount)
-
-func changeWeapon(weaponName : String) -> void:
-	_setWeaponIndex(_weapons.get_node(weaponName).get_index())
+func has(weaponId : int) -> bool:
+	var nodeNameExpected : String = str(weaponId)
+	for node in _weapons.get_children():
+		if node.name == nodeNameExpected:
+			return true
+	return false
 
 func switchToNextWeapon() -> void:
-	if _weaponIndex == NO_WEAPON_INDEX:
-		return
-	if _weaponIndex == _weapons.get_child_count() - 1:
-		_setWeaponIndex(0)
-	else:
-		_setWeaponIndex(_weaponIndex + 1)
+	_weaponSelector.switchToNextWeapon()
 
 func switchToPreviousWeapon() -> void:
-	if _weaponIndex == NO_WEAPON_INDEX:
-		return
-	if _weaponIndex == 0:
-		_setWeaponIndex(_weapons.get_child_count() - 1)
-	else:
-		_setWeaponIndex(_weaponIndex - 1)
+	_weaponSelector.switchToPreviousWeapon()
 
-func _setWeaponIndex(index : int) -> void:
-	_weaponIndex = index
-	_timer.start(_switchWeaponCooldown)
+func _addNewWeapon(weaponId : int, startingAmmo : int) -> void:
+	var weapon : Weapon = WeaponFactory.new().build(weaponId)
+	weapon.setProjectileStore(_projectileStore, _muzzle, _shooter)
+	weapon.ammo = startingAmmo
+	weapon.name = str(weaponId)
+	_weapons.add_child(weapon)
+	emit_signal("weaponAdded", weapon, weaponId, startingAmmo)
+	_weaponSelector.setup(_weapons.get_children())
+
+func _getWeaponNode(weaponId : int) -> Node:
+	return _weapons.get_node(str(weaponId))
