@@ -13,7 +13,8 @@ func get_class() -> String:
 	return "Turret"
 
 func _ready() -> void:
-	weaponSet.getWeapons()[0].connect("empty", self, "_on_weapon_empty")
+	weaponSet.addWeapon(WeaponFactory.weaponsId.gun, 50)
+	weaponSet.getWeapon(WeaponFactory.weaponsId.gun).connect("empty", self, "_on_weapon_empty")
 	var states : Dictionary = { "WATCHING" : State.new(self, "", "", "handleWatching"),
 								"COMBATTING" : State.new(self, "", "", "handleCombatting"),
 								"RELOADING" : State.new(self, "", "", "handleReloading"),
@@ -70,7 +71,7 @@ func onEndDeath() -> void:
 func _on_weapon_empty() -> void:
 	timer.start(reloadDuration)
 	sm.changeState("RELOADING")
-	weaponSet.addAmmoByIndex(0, 50)
+	weaponSet.addAmmo(0, 50)
 
 func fire() -> void:
 	if abs(top.get_angle_to(player.global_position)) < PI * 0.3:

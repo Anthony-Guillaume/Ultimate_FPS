@@ -9,6 +9,7 @@ signal empty()
 var maxAmmo : int = 1000
 var ammo : int = 1000  setget _setAmmo, _getAmmo
 var cooldown : float = 0.1
+var id : int = -1
 
 var _projectileScene : PackedScene
 var _projectileStore : Node
@@ -22,7 +23,7 @@ onready var _timer : Timer = $Timer
 func get_class() -> String:
 	return "Weapon"
 
-func setProjectileStore(projectileStore : Node, muzzle : Muzzle, shooter) -> void:
+func setup(projectileStore : Node, muzzle : Muzzle, shooter) -> void:
 	_projectileStore = projectileStore
 	_muzzle = muzzle
 	_shooter = shooter

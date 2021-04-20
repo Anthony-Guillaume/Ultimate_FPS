@@ -8,7 +8,6 @@
 [ext_resource path="res://source/actors/utils/ContextMap.tscn" type="PackedScene" id=6]
 [ext_resource path="res://source/actors/states/StateMachine.gd" type="Script" id=11]
 
-
 [sub_resource type="CircleShape2D" id=1]
 radius = 35.496
 
@@ -17,6 +16,7 @@ collision_layer = 8
 collision_mask = 5
 script = ExtResource( 4 )
 baseSpeed = 500.0
+meleeReach = 400.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -0.630005, -3.14981 )

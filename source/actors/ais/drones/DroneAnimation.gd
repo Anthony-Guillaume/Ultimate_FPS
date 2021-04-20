@@ -11,7 +11,8 @@ func get_class() -> String:
 
 func setup(drone : Drone, weaponSet : WeaponSet, muzzle : Position2D) -> void:
 	animation.connect("animation_finished", self, "_on_animation_finished")
-	weaponSet.getWeapons()[0].connect("shoot", self, "_on_shoot")
+	weaponSet.addWeapon(WeaponFactory.weaponsId.gun, 50)
+	weaponSet.getWeapon(WeaponFactory.weaponsId.gun).connect("empty", self, "_on_weapon_empty")
 	_muzzle = muzzle
 	_drone = drone
 	animation.play("move")

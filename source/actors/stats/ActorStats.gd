@@ -4,6 +4,7 @@ class_name ActorStats
 
 var health : Attribute
 var runSpeed : Attribute
+var airSpeed : Attribute
 
 var immune : bool = false
 

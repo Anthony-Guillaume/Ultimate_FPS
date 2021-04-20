@@ -27,24 +27,46 @@ func canFire() -> bool:
 func switchToNextWeapon() -> void:
 	if _weapons.empty():
 		weaponIndex = NO_WEAPON_INDEX
-		return
-	if weaponIndex == _weapons.size() - 1:
-		_setWeaponIndex(0)
 	else:
-		_setWeaponIndex(weaponIndex + 1)
+		_setWeaponIndex(_getNextNonEmptyWeaponIndex(weaponIndex))
 
 func switchToPreviousWeapon() -> void:
 	if _weapons.empty():
 		weaponIndex = NO_WEAPON_INDEX
-		return
-	if weaponIndex == 0:
-		_setWeaponIndex(_weapons.size() - 1)
 	else:
-		_setWeaponIndex(weaponIndex - 1)
-
-func _setWeaponIndex(index : int) -> void:
-	weaponIndex = index
-	_timer.start(cooldown)
+		_setWeaponIndex(_getPreviousNonEmptyWeaponIndex(weaponIndex))
 
 func _getWeaponIndex() -> int:
 	return weaponIndex
+
+func _getNextNonEmptyWeaponIndex(currentIndex : int) -> int:
+	for i in _weapons.size():
+		currentIndex = _getNextWeaponIndex(currentIndex)
+		if _weapons[currentIndex].ammo > 0:
+			return currentIndex
+	return NO_WEAPON_INDEX
+
+func _getPreviousNonEmptyWeaponIndex(currentIndex : int) -> int:
+	for i in _weapons.size():
+		currentIndex = _getPreviousWeaponIndex(currentIndex)
+		if _weapons[currentIndex].ammo > 0:
+			return currentIndex
+	return NO_WEAPON_INDEX
+
+func _getNextWeaponIndex(currentIndex : int) -> int:
+	if currentIndex == _weapons.size() - 1:
+		return 0
+	else:
+		return currentIndex + 1
+
+func _getPreviousWeaponIndex(currentIndex : int) -> int:
+	if currentIndex == 0:
+		return _weapons.size() - 1
+	else:
+		return currentIndex - 1
+		currentIndex
+
+func _setWeaponIndex(index : int) -> void:
+	if index != weaponIndex:
+		weaponIndex = index
+		_timer.start(cooldown)

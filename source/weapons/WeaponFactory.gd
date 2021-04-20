@@ -18,4 +18,5 @@ func get_class() -> String:
 func build(weaponId : int) -> Weapon:
 	assert(weaponId in weaponsId.values(), "weaponId is not a valid enum value")
 	var weapon : Weapon = _scenes[weaponId].instance()
+	weapon.id = weaponId
 	return weapon

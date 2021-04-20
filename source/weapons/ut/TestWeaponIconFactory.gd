@@ -7,5 +7,5 @@ func before_each() -> void:
 
 func test_build_valid_weapon() -> void:
    var validWeaponId : int = WeaponFactory.weaponsId.gun
-   var icon = sut.build(validWeaponId)
+   var _icon = sut.build(validWeaponId)
    pass_test("Shall not throw")

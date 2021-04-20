@@ -11,7 +11,7 @@ const espilonForTiming : float = 0.01
 
 func before_each() -> void:
 	sut = scene.instance()
-	sut.setProjectileStore(projectileStore, muzzle, shooter)
+	sut.setup(projectileStore, muzzle, shooter)
 	add_child_autofree(sut)
 	watch_signals(sut)
 

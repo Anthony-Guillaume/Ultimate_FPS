@@ -12,6 +12,6 @@ func handleAiDeath(ai) -> void:
 	killAi(ai)
 
 func _on_body_entered(body) -> void:
-	if body == _player and _ais.get_child_count() == 0:
+	if body == _player and deadAisCount == aiAtStart:
 		yield(get_tree().create_timer(1.0), "timeout")
 		handleVictory()

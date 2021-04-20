@@ -37,7 +37,7 @@ func setStats() -> void:
 	runAcceleration = baseSpeed * 0.35
 
 func setProjectileStore(skillStore : Node) -> void:
-	weaponSet.setProjectileStore(skillStore, muzzle, self)
+	weaponSet.setup(skillStore, muzzle, self)
 
 func _on_health_changed(value : float) -> void:
 	if value < 0.1:
