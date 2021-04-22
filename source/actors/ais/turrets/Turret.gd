@@ -13,14 +13,16 @@ func get_class() -> String:
 	return "Turret"
 
 func _ready() -> void:
-	weaponSet.addWeapon(WeaponFactory.weaponsId.gun, 50)
-	weaponSet.getWeapon(WeaponFactory.weaponsId.gun).connect("empty", self, "_on_weapon_empty")
 	var states : Dictionary = { "WATCHING" : State.new(self, "", "", "handleWatching"),
 								"COMBATTING" : State.new(self, "", "", "handleCombatting"),
 								"RELOADING" : State.new(self, "", "", "handleReloading"),
 								"DEATH" : State.new(self, "onStartDeath", "onEndDeath", "handleDeath")}
 	sm.setStates(states)
 	sm.startWithState("WATCHING")
+
+func setWeapons() -> void:
+	weaponSet.addWeapon(WeaponFactory.weaponsId.gun, 50)
+	weaponSet.getWeapon(WeaponFactory.weaponsId.gun).connect("empty", self, "_on_weapon_empty")
 
 func _process(_delta : float) -> void:
 	label.set_text(sm.getCurrentState())

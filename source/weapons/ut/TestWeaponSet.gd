@@ -24,7 +24,7 @@ func test_add_valid_weapon() -> void:
 func test_add_valid_weapon_shall_emit_weaponAdded() -> void:
    var weaponId : int = WeaponFactory.weaponsId.gun
    sut.addWeapon(weaponId, 10)
-   assert_signal_emitted(sut, "weaponAdded")
+   assert_signal_emitted(sut, "weapon_added")
 
 func test_add_weapon_already_present_shall_add_ammo() -> void:
    var weaponId : int = WeaponFactory.weaponsId.gun
@@ -35,13 +35,13 @@ func test_add_weapon_already_present_shall_add_ammo() -> void:
 func test_add__weapon_shall_emit_weaponAdded_for_each_different_weapon() -> void:
    sut.addWeapon(WeaponFactory.weaponsId.gun, 10)
    sut.addWeapon(WeaponFactory.weaponsId.rocketLauncher, 10)
-   assert_signal_emit_count(sut, "weaponAdded", 2)
+   assert_signal_emit_count(sut, "weapon_added", 2)
 
 func test_add_same_weapon_shall_emit_weaponAdded_only_first_time() -> void:
    var weaponId : int = WeaponFactory.weaponsId.gun
    sut.addWeapon(weaponId, 5)
    sut.addWeapon(weaponId, 10)
-   assert_signal_emit_count(sut, "weaponAdded", 1)
+   assert_signal_emit_count(sut, "weapon_added", 1)
 
 func test_add_same_weapon_shall_not_duplicate_weapon() -> void:
    var weaponId : int = WeaponFactory.weaponsId.gun

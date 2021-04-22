@@ -7,3 +7,4 @@ func get_class() -> String:
 
 func _init() -> void:
 	_projectileScene = preload("res://source/weapons/projectiles/objects/PistolBall.tscn")
+	cooldown = 0.6

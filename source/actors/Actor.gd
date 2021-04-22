@@ -29,6 +29,12 @@ export var maxSpeed : float = 500
 func _ready() -> void:
 	setStats()
 
+func activate(b : bool) -> void:
+	set_physics_process(b)
+	set_process_input(b)
+	set_process_unhandled_key_input(b)
+	set_process_unhandled_input(b)
+
 func setStats() -> void:
 	var health : Attribute = Attribute.new(baseHealth, 0, maxHealth)
 	var runSpeed : Attribute = Attribute.new(baseSpeed, 0, maxSpeed)
@@ -38,6 +44,10 @@ func setStats() -> void:
 
 func setProjectileStore(skillStore : Node) -> void:
 	weaponSet.setup(skillStore, muzzle, self)
+	setWeapons()
+
+func setWeapons() -> void:
+	pass
 
 func _on_health_changed(value : float) -> void:
 	if value < 0.1:

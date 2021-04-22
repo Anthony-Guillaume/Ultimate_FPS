@@ -60,12 +60,11 @@ func setupActors() -> void:
 			setupAi(ai)
 
 func setupPlayer() -> void:
+	_player.setup(_skillStore)
 	_player.connect("death", self, "_on_player_death")
-	_player.setProjectileStore(_skillStore)
 
 func setupAi(ai) -> void:
-	ai.setup(_player)
-	ai.setProjectileStore(_skillStore)
+	ai.setup(_player, _skillStore)
 	ai.connect("death", self, "_on_ai_death", [ai])
 
 ######### TODO AiFactory

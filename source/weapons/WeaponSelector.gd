@@ -2,71 +2,54 @@ extends Node
 
 class_name WeaponSelector
 
-const NO_WEAPON_INDEX : int = -1
-
-var cooldown : float = 0.4
-
-var weaponIndex : int = NO_WEAPON_INDEX setget , _getWeaponIndex
-var _weapons : Array
-
-onready var _timer : Timer = $Timer
-
 func get_class() -> String: 
    return "WeaponSelector"
 
-func setup(weapon : Array) -> void:
-	_weapons = weapon
-	if weapon.empty():
-		weaponIndex = NO_WEAPON_INDEX
+const NO_WEAPON : int = -1
+
+static func switchToNextNonEmptyWeapon(currentId : int, weapons : Array) -> int:
+	if weapons.empty():
+		return NO_WEAPON
 	else:
-		weaponIndex = clamp(weaponIndex, 0, _weapons.size() - 1) as int
+		var index : int = _getCurrentIndex(currentId, weapons)
+		return weapons[_getNextNonEmptyWeaponId(index, weapons)].id
 
-func canFire() -> bool:
-	return is_zero_approx(_timer.get_time_left()) and weaponIndex != NO_WEAPON_INDEX
-
-func switchToNextWeapon() -> void:
-	if _weapons.empty():
-		weaponIndex = NO_WEAPON_INDEX
+static func switchToPreviousNonEmptyWeapon(currentId : int, weapons : Array) -> int:
+	if weapons.empty():
+		return NO_WEAPON
 	else:
-		_setWeaponIndex(_getNextNonEmptyWeaponIndex(weaponIndex))
+		var index : int = _getCurrentIndex(currentId, weapons)
+		return weapons[_getPreviousNonEmptyWeaponIndex(index, weapons)].id
 
-func switchToPreviousWeapon() -> void:
-	if _weapons.empty():
-		weaponIndex = NO_WEAPON_INDEX
-	else:
-		_setWeaponIndex(_getPreviousNonEmptyWeaponIndex(weaponIndex))
+static func _getCurrentIndex(id : int, weapons : Array) -> int:
+	for i in weapons.size():
+		if weapons[i].id == id:
+			return i
+	return NO_WEAPON
 
-func _getWeaponIndex() -> int:
-	return weaponIndex
-
-func _getNextNonEmptyWeaponIndex(currentIndex : int) -> int:
-	for i in _weapons.size():
-		currentIndex = _getNextWeaponIndex(currentIndex)
-		if _weapons[currentIndex].ammo > 0:
+static func _getNextNonEmptyWeaponId(currentIndex : int, weapons : Array) -> int:
+# no while to avoid all weapon empty case
+	for i in weapons.size():
+		currentIndex = _getNextWeaponIndex(currentIndex, weapons)
+		if weapons[currentIndex].ammo > 0:
 			return currentIndex
-	return NO_WEAPON_INDEX
+	return currentIndex
 
-func _getPreviousNonEmptyWeaponIndex(currentIndex : int) -> int:
-	for i in _weapons.size():
-		currentIndex = _getPreviousWeaponIndex(currentIndex)
-		if _weapons[currentIndex].ammo > 0:
+static func _getPreviousNonEmptyWeaponIndex(currentIndex : int, weapons : Array) -> int:
+	for i in weapons.size():
+		currentIndex = _getPreviousWeaponIndex(currentIndex, weapons)
+		if weapons[currentIndex].ammo > 0:
 			return currentIndex
-	return NO_WEAPON_INDEX
+	return currentIndex
 
-func _getNextWeaponIndex(currentIndex : int) -> int:
-	if currentIndex == _weapons.size() - 1:
+static func _getNextWeaponIndex(currentIndex : int, weapons : Array) -> int:
+	if currentIndex == weapons.size() - 1:
 		return 0
 	else:
 		return currentIndex + 1
 
-func _getPreviousWeaponIndex(currentIndex : int) -> int:
+static func _getPreviousWeaponIndex(currentIndex : int, weapons : Array) -> int:
 	if currentIndex == 0:
-		return _weapons.size() - 1
+		return weapons.size() - 1
 	else:
 		return currentIndex - 1
-		currentIndex
-
-func _setWeaponIndex(index : int) -> void:
-	if index != weaponIndex:
-		weaponIndex = index
-		_timer.start(cooldown)

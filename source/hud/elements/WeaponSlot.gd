@@ -9,8 +9,7 @@ func get_class() -> String:
 	return "WeaponSlot"
 
 func setTexture(weaponId : int) -> void:
-	var factory : WeaponIconFactory = WeaponIconFactory.new()
-	set_texture(factory.build(weaponId))
+	set_texture(WeaponIconFactory.build(weaponId))
 	self.weaponId = weaponId
 
 func updateAmmoCount(ammo : int) -> void:

@@ -13,9 +13,7 @@ func get_class() -> String:
 	return "Boss1"
 
 func _ready() -> void:
-	weaponSet.addWeapon(WeaponFactory.weaponsId.rocketLauncher, 50)
-	currentWeapon = weaponSet.getWeapon(WeaponFactory.weaponsId.rocketLauncher)
-	currentWeapon.connect("empty", self, "_on_weapon_empty")
+	
 	var states : Dictionary = { 
 								"PHASE1" : State.new(self, "", "", "handlePhase1"),
 								"PHASE2" : State.new(self, "", "", "handlePhase2"),
@@ -25,6 +23,12 @@ func _ready() -> void:
 	sm.startWithState("PHASE1")
 	add_child(goalHandler)
 
+
+func setWeapons() -> void:
+	weaponSet.addWeapon(WeaponFactory.weaponsId.rocketLauncher, 50)
+	currentWeapon = weaponSet.getWeapon(WeaponFactory.weaponsId.rocketLauncher)
+	# currentWeapon.connect("empty", self, "_on_weapon_empty")
+	
 func handlePhase1(delta : float) -> void:
 	if stats.health.getValue() < stats.health.getMaxValue() * 0.5:
 		pass

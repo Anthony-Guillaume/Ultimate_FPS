@@ -26,9 +26,7 @@ func get_class() -> String:
 func _ready() -> void:
 	pathHandler = CyclicPathHandler.new() if cyclycPatrolling else BackAndForthPathHandler.new()
 	pathHandler.pathPoints = get_node(pathNode).get_curve().get_baked_points()
-	weaponSet.addWeapon(WeaponFactory.weaponsId.gun, 50)
-	weaponSet.getWeapon(WeaponFactory.weaponsId.gun).connect("empty", self, "_on_weapon_empty")
-	animation.setup(self, weaponSet, muzzle)
+	
 	var states : Dictionary = { "PATROLLING" : State.new(self, "onStartPatrolling", "", "handlePatrolling"),
 								"COMBATTING" : State.new(self, "", "", "handleCombatting"),
 								"RELOADING" : State.new(self, "", "", "handleReloading"),
@@ -37,6 +35,11 @@ func _ready() -> void:
 	sm.startWithState("PATROLLING")
 	velocity = Vector2(-1, 1) * stats.runSpeed.getValue()
 	direction = velocity.normalized()
+
+func setWeapons() -> void:
+	weaponSet.addWeapon(WeaponFactory.weaponsId.gun, 50)
+	weaponSet.getWeapon(WeaponFactory.weaponsId.gun).connect("empty", self, "_on_weapon_empty")
+	animation.setup(self, weaponSet, muzzle)
 
 func _process(_delta : float) -> void:
 	label.set_text(sm.getCurrentState())

@@ -32,8 +32,9 @@ func _process(_delta):
 func get_class() -> String:
 	return "BaseAi"
 
-func setup(player : BasePlayer) -> void:
+func setup(player : BasePlayer, store) -> void:
 	self.player = player
+	setProjectileStore(store)
 
 func _on_health_changed(value : float) -> void:
 	if value < 0.1:

@@ -46,11 +46,16 @@ func get_class() -> String:
 	return "BasePlayer"
 
 func _ready() -> void:
+	hud.initialize(stats.health, weaponSet)
+	show()
+
+func setup(store) -> void:
+	setProjectileStore(store)
+
+func setWeapons() -> void:
 	weaponSet.addWeapon(WeaponFactory.weaponsId.gun, 50)
 	weaponSet.addWeapon(WeaponFactory.weaponsId.laserGun, 50)
 	weaponSet.addWeapon(WeaponFactory.weaponsId.rocketLauncher, 50)
-	hud.initialize(stats.health, weaponSet)
-	show()
 
 func _physics_process(delta : float) -> void:
 	handleChangeWeaponInput()

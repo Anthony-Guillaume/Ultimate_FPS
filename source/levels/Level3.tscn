@@ -228,7 +228,6 @@ __meta__ = {
 
 [node name="Door" parent="Doors" instance=ExtResource( 10 )]
 position = Vector2( 5208.02, -70.6666 )
-keyPaths = [ NodePath("../../Keys/Key") ]
 
 [node name="Keys" type="Node2D" parent="."]
 __meta__ = {

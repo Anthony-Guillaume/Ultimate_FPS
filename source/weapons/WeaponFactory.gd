@@ -15,7 +15,7 @@ const _scenes : Array = [
 func get_class() -> String: 
    return "WeaponFactory"
 
-func build(weaponId : int) -> Weapon:
+static func build(weaponId : int) -> Weapon:
 	assert(weaponId in weaponsId.values(), "weaponId is not a valid enum value")
 	var weapon : Weapon = _scenes[weaponId].instance()
 	weapon.id = weaponId

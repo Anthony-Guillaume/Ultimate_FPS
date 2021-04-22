@@ -13,7 +13,7 @@ func initialize(weaponSet : WeaponSet) -> void:
 	weaponSet.connect("selected_weapon_changed", self, "_on_selected_weapon_changed")
 	for weapon in weaponSet.getWeapons():
 		_addWeaponSlot(weapon)
-	_currentWeaponSlotSelected = get_child(0)
+		_currentWeaponSlotSelected = get_child(0)
 
 func _addWeaponSlot(weapon : Weapon) -> void:
 	var weaponSlot : WeaponSlot = _weaponSlotNode.instance()
@@ -24,6 +24,8 @@ func _addWeaponSlot(weapon : Weapon) -> void:
 	weapon.connect("empty", self, "_on_weapon_empty", [weapon])
 
 func _on_selected_weapon_changed(weaponId) -> void:
+	if _currentWeaponSlotSelected == null:
+		_currentWeaponSlotSelected = _getWeaponSlot(weaponId)
 	_currentWeaponSlotSelected.modulate = Color(1, 1, 1)
 	_currentWeaponSlotSelected = _getWeaponSlot(weaponId)
 	_currentWeaponSlotSelected.modulate = Color(0.5, 0.5, 0.5)
