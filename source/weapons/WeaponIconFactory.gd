@@ -7,9 +7,9 @@ const placeholder : Texture = preload("res://icon.png")
 const _scenes : Array = [
 	preload("res://assets/icons/plasma_icon001.png"),
 	placeholder,
-	preload("res://assets/icons/rocket_icon001.png"),
 	placeholder,
-	placeholder
+	placeholder,
+	preload("res://assets/icons/rocket_icon001.png")
 ]
 
 func get_class() -> String: 

@@ -12,6 +12,12 @@ var _state : State = _endState
 func get_class() -> String:
 	return "StateMachine"
 
+func activate(b : bool) -> void:
+	set_physics_process(b)
+	set_process_input(b)
+	set_process_unhandled_key_input(b)
+	set_process_unhandled_input(b)
+
 func changeState(stateName : String) -> void:
 	if _state.onExit != null:
 		_state.onExit.call_func()

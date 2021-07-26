@@ -32,6 +32,13 @@ func _process(_delta):
 func get_class() -> String:
 	return "BaseAi"
 
+func activate(b : bool) -> void:
+	.activate(b)
+	sm.set_physics_process(b)
+	sm.set_process_input(b)
+	sm.set_process_unhandled_key_input(b)
+	sm.set_process_unhandled_input(b)
+
 func setup(player : BasePlayer, store) -> void:
 	self.player = player
 	setProjectileStore(store)

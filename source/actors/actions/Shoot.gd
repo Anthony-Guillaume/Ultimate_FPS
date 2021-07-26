@@ -13,10 +13,8 @@ func _init(agent).(agent) -> void:
 func reset() -> void:
 	_hasShoot = false
 
-#func _ready() -> void:
-#	_agent.weaponSet.currentWeapon.connect("shoot", self, "_on_shoot")
-
 func checkPreconditions() -> bool:
+	_agent.weaponSet.currentWeapon.connect("shoot", self, "_on_shoot")
 	return _agent.currentWeapon.ammo > 0
  
 func perform() -> bool:

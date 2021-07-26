@@ -1,7 +1,9 @@
 extends Object
 
+class_name CollisionChecker
+
 # static func canFall(spaceState : Physics2DDirectSpaceState, agent : Actor) -> bool:
-#     var from : Vector2 = agent.global_position + Vector2(hitboxHalfWidth * 1.5, 0.0) * runDirection
+#     var from : Vector2 = agent.global_position + Vector2(agent.width * 1.5, 0.0) * runDirection
 #     var to : Vector2 = from + Vector2(0.0, hitboxHalfHeight + 30.0)
 #     var collisionInfo : Dictionary = spaceState.intersect_ray(from, to, [], WorldInfo.getUntraversableOjectLayer())
 #     return collisionInfo.empty()

@@ -275,5 +275,4 @@ __meta__ = {
 }
 
 [editable path="Portals/PortalOneWay"]
-
 [editable path="Portals/Spawner/PortalOneWay"]
